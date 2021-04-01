@@ -70,7 +70,7 @@ programa. Así como un menú para poder revisar una oferta y decidir si publicar
 
 * Alejandro López Adrados: /usuarioGitHub/
 * Guillermo Grande Santi: /usuarioGitHub/
-* Nicolás Rubira Cabello: /usuarioGitHub/
+* Nicolás Rubira Cabello: [@nicorubira] (https://github.com/nicorubira)
 * Adrián Morales Dato: [@Adri-md-1208](https://github.com/Adri-md-1208)
 
 ## Tecnologías usadas
