@@ -8,6 +8,14 @@ public class Transaction {
     private Offer offer;
     private Date time;
 
+    public Date getTime() {
+        return time;
+    }
+
+    public Offer getOffer() {
+        return offer;
+    }
+
     public Client getPurchaser() {
         return purchaser;
     }
