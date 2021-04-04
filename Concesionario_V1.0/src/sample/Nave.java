@@ -1,9 +1,10 @@
 package sample;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-class Nave{
+class Nave implements Serializable {
 
     private String numeroRegistro;
     private Client propietario;
@@ -52,6 +53,8 @@ class Nave{
     public void setSuscriptores(List<Client> suscriptores) {
         this.suscriptores = suscriptores;
     }
+
+
 
     /*
     public notificar(List<Client> suscriptores){

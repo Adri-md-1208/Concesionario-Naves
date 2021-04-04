@@ -1,8 +1,9 @@
 package sample;
 
+import java.io.Serializable;
 import java.util.List;
 
-class CazaCreator extends Creator{
+class CazaCreator extends Creator implements Serializable {
 
     @Override
     public Nave crearNave(String numeroRegistro, Client propietario, Propulsion[] motor, int numTripulantes,

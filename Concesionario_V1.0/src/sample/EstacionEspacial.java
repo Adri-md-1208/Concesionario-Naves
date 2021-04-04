@@ -1,8 +1,9 @@
 package sample;
 
+import java.io.Serializable;
 import java.util.List;
 
-class EstacionEspacial extends Nave{
+class EstacionEspacial extends Nave implements Serializable {
     private int numMax;
     private List<Nave> hangar;
     private Defensa[] defensa = new Defensa[3];

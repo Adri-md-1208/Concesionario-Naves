@@ -1,6 +1,8 @@
 package sample;
 
-class Blindaje implements Defensa {
+import java.io.Serializable;
+
+class Blindaje implements Defensa, Serializable {
     private String material;
     private double peso;
     private double danoAbsorcion;

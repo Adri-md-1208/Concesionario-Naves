@@ -11,14 +11,18 @@ public class FileManager {
     List<Offer> offerList;
     File transactionFile;
     List <Transaction> transactionList;
+    File shipFile;
+    List <Nave> shipList;
 
-    public FileManager(File clientFile, List<Client> clientList, File offerFile, List<Offer> offerList, File transactionFile, List<Transaction> transactionList) {
+    public FileManager(File clientFile, List<Client> clientList, File offerFile, List<Offer> offerList, File transactionFile, List<Transaction> transactionList, File shipFile, List<Nave> shipList) {
         this.clientFile = clientFile;
         this.clientList = clientList;
         this.offerFile = offerFile;
         this.offerList = offerList;
         this.transactionFile = transactionFile;
         this.transactionList = transactionList;
+        this.shipFile = shipFile;
+        this.shipList = shipList;
     }
 
     //Para añadir nuevos clientes
@@ -106,6 +110,8 @@ public class FileManager {
 
 
 
+
+
     //FICHERO OFERTAS
     public void writeOffer(Offer offer) throws IOException {
         ObjectOutputStream writer;
@@ -173,5 +179,31 @@ public class FileManager {
             }
         }
     }
+
+    //FICHERO NAVES
+    public void writeShip(Nave nave) throws IOException {
+        ObjectOutputStream writer;
+        if (shipFile.length() == 0) {
+            writer = new ObjectOutputStream(new FileOutputStream(shipFile));
+        } else {
+            writer = new ObjectOutputStreamMod(new FileOutputStream(shipFile, true));
+        }
+        writer.writeObject(nave);
+    }
+
+    public void readShips() throws IOException, ClassNotFoundException {
+        if (shipFile.exists()) {
+            ObjectInputStream reader = new ObjectInputStream(new FileInputStream(shipFile));
+            try {
+                while (true) {
+                    Nave nave = (Nave) reader.readObject();
+                    shipList.add(nave);
+                }
+            } catch (EOFException e) {
+
+            }
+        }
+    }
+
 }
 

@@ -14,10 +14,10 @@ public class Client implements Serializable {
     private int warnings;
     private boolean piracy;
     private boolean fraud;
-    private Nave[] navesVenta;
+    private Nave navesVenta;
 
 
-    public Client(String name, String planet, String specie, int id, String nick, String password, String email, boolean license, int warnings, boolean piracy, boolean fraud, Nave[] naves) {
+    public Client(String name, String planet, String specie, int id, String nick, String password, String email, boolean license, int warnings, boolean piracy, boolean fraud, Nave naves) {
         this.name = name;
         this.planet = planet;
         this.specie = specie;
@@ -85,5 +85,13 @@ public class Client implements Serializable {
 
     public void setFraud(boolean fraud) {
         this.fraud = fraud;
+    }
+
+    public void setNavesVenta(Nave navesVenta) {
+        this.navesVenta = navesVenta;
+    }
+
+    public Nave getNavesVenta() {
+        return navesVenta;
     }
 }

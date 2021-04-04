@@ -11,8 +11,10 @@ public class Admin {
     List <Offer> offerList = new ArrayList<>();
     File transactionFile = new File("Transactions.dat");
     List <Transaction> transactionList= new ArrayList<>();
+    File shipFile = new File("Ships.dat");
+    List <Nave> shipList= new ArrayList<>();
 
-    FileManager fileManager = new FileManager(clientFile,clientList,offerFile,offerList,transactionFile,transactionList);
+    FileManager fileManager = new FileManager(clientFile,clientList,offerFile,offerList,transactionFile,transactionList,shipFile,shipList);
 
     public int evaluarTipoUsuario(Client client) throws IOException, ClassNotFoundException {
 
@@ -100,5 +102,14 @@ public class Admin {
         fileManager.readClients();
         return clientList;
     }
-}
+
+    public void addShip(Nave ship) throws IOException {
+        fileManager.writeShip(ship);
+    }
+    public List<Nave> getShipList() throws IOException, ClassNotFoundException {
+        fileManager.readShips();
+        return shipList;
+    }
+    }
+
 

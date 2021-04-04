@@ -1,8 +1,9 @@
 package sample;
 
+import java.io.Serializable;
 import java.util.List;
 
-class Carguero extends Nave{
+class Carguero extends Nave implements Serializable {
     private double carga;
     private Defensa[] defensa;
 

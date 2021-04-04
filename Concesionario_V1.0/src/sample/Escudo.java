@@ -1,6 +1,8 @@
 package sample;
 
-class Escudo implements Defensa{
+import java.io.Serializable;
+
+class Escudo implements Defensa, Serializable {
     private double energiaRequerida;
     private double danoAbsorcion;
 

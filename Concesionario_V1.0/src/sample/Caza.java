@@ -1,8 +1,9 @@
 package sample;
 
+import java.io.Serializable;
 import java.util.List;
 
-class Caza extends Nave{
+class Caza extends Nave implements Serializable {
     private Arma[] armas = new Arma[2];
     private Defensa[] defensa = new Defensa[2];
 
