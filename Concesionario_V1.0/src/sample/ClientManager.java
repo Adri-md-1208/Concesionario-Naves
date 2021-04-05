@@ -15,17 +15,18 @@ public class ClientManager {
         Admin admin = new Admin();
 
         //Creador de clientes:
+        /*
+        FilesCreator filesCreator = new FilesCreator();
+        filesCreator.ClientCreator();
+        filesCreator.ShipCreator();
+        System.out.println(admin.getShipList().get(1).getPropietario().getEmail());
+        */
 
-        //FilesCreator filesCreator = new FilesCreator();
-        //filesCreator.ClientCreator();
-        //filesCreator.ShipCreator();
-
-        //System.out.println(admin.getShipList().get(1).getPropietario().getEmail());
         Login login = new Login();
         client  = login.login();
         if (client!=null) {
             TipoUsuario = admin.evaluarTipoUsuario(client);
-            System.out.println("\nSe está evaluando ...\n");
+            System.out.println("\nSe está evaluando su usuario...\n");
             if (TipoUsuario==0) {
                 System.out.println("Está usted bloqueado en nuestro sistema.");
                 return false;

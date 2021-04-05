@@ -11,6 +11,15 @@ public class Offer implements Serializable {
     private boolean isBought;
     private Nave[] naves;
 
+    public Offer(String description, double prize, Date dateLimit, boolean isPublished, boolean isBought, Nave[] naves) {
+        this.description = description;
+        this.prize = prize;
+        this.limit = limit;
+        this.isPublished = isPublished;
+        this.isBought = isBought;
+        this.naves = naves;
+    }
+
     public Nave[] getNaves() {
         return naves;
     }

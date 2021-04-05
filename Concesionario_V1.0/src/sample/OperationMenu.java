@@ -5,8 +5,8 @@ import java.util.Scanner;
 
 public class OperationMenu {
 
-    boolean validOption=false;
-    boolean exit=false;
+    boolean validOption = false;
+    boolean exit = false;
 
     public void printMenu(int TipoUsuario, Client client) throws IOException, ClassNotFoundException {
         while (!exit) {
@@ -21,7 +21,7 @@ public class OperationMenu {
             validOption = false;
             while (validOption == false) {
                 int option = selectOption();
-                if (option >= 1 && option <= 5) {
+                if (option >= 1 && option <= 6) {
                     validOption = true;
                     switch (option) {
                         case 1:
@@ -45,7 +45,7 @@ public class OperationMenu {
                             lastTransaction.lastTransaction(client);
                             break;
                         case 6:
-                            exit=true;
+                            exit = true;
                             break;
                     }
                 } else {
@@ -55,15 +55,12 @@ public class OperationMenu {
         }
     }
 
-    public int selectOption(){
+    public int selectOption() {
         Scanner sc = new Scanner(System.in);
-        int optionSelected=0;
+        int optionSelected = 0;
         if (sc.hasNextInt()) {
             optionSelected = sc.nextInt();
         }
-        if (optionSelected>=1 && optionSelected<=5) {
-            return optionSelected;
-        }
-        return 0;
+        return optionSelected;
     }
 }
