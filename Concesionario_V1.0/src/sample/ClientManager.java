@@ -16,10 +16,10 @@ public class ClientManager {
 
         //Creador de clientes:
 
-        //FilesCreator filesCreator = new FilesCreator();
-        //filesCreator.ClientCreator();
-        //filesCreator.ShipCreator();
-        //System.out.println(admin.getShipList().get(1).getPropietario().getEmail());
+        /*FilesCreator filesCreator = new FilesCreator();
+        filesCreator.ClientCreator();
+        filesCreator.ShipCreator();
+        System.out.println(admin.getShipList().get(1).getPropietario().getEmail());*/
 
 
         Login login = new Login();

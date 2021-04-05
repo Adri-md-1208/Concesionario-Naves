@@ -14,7 +14,7 @@ public class CreateOffer {
         Admin admin = new Admin();
         List<Nave> naves = admin.getShipList();
         for (Nave nave : naves) {
-            if (nave.getPropietario().getNick().equals(client.getNick())){
+            if (nave.getPropietario().getEmail().equals(client.getEmail())){
                 navesVenta.add(nave);
             }
         }
@@ -23,36 +23,45 @@ public class CreateOffer {
             return true;
         }
         for (Nave nave : navesVenta) {
-            System.out.println(contador + ". " + nave.getNumeroRegistro() + " (Número de Registro) del tipo " + nave.getClass().getName());
+            System.out.println(contador + ". " + nave.getNumeroRegistro() + " (Número de Registro) del tipo " + nave.getClass().getSimpleName());
             contador++;
         }
         //Leer opcion elegida y guardarlo en Offer oferta.
-        //Nave[] navesVentaArray;
-        //Nave[] navesVentaArray = (Nave[]) avesVenta.toArray();
-        Nave[] navesVentaArray = navesVenta.toArray(new Nave[navesVenta.size()+1]);
-        Nave [] navesOferta = seleccionarNaves(navesVentaArray);
+        Nave [] navesOferta = seleccionarNaves(navesVenta);
 
         //Pedir una descripción, un precio y una ¿¿¿fecha límite???
         System.out.println("Introduzca el precio de su oferta");
         Scanner sc = new Scanner(System.in);
-        double precio = sc.nextDouble();
+        double precio=0;
+        boolean precioVálido = false;
+        while (!precioVálido) {
+            if (sc.hasNextDouble()) {
+                precio = sc.nextDouble();
+                precioVálido = true;
+            } else {
+                System.out.println("Este precio no es posible");
+                sc = new Scanner(System.in);
+            }
+        }
         System.out.println("Introduzca una descripción para su oferta");
-        String descripcion = sc.next();
-        Scanner sc2 = new Scanner(System.in);
-        System.out.println("¿En qué mes quiere que se acabe su oferta? -- Introduzca el número del mes entre 1 y 12");
-        int mes=0;
+        sc = new Scanner(System.in);
+        String descripcion = sc.nextLine();
+        System.out.println("¿En qué mes quiere que se acabe su oferta? -- Introduzca un número del mes entre 1 y 12");
+        int mes = 0;
+        sc = new Scanner(System.in);
         boolean correct = false;
         while (!correct) {
-            mes = sc2.nextInt();
+            mes = sc.nextInt();
             if (mes>=1 && mes<=12) {
                 correct = true;
             }
         }
-        System.out.println("¿En qué día quiere que se acabe su oferta? -- Introduzca el número del dia entre 1 y 28");
+        System.out.println("¿En qué día quiere que se acabe su oferta? -- Introduzca un número del dia entre 1 y 28");
         int dia = 0;
         correct = false;
+        sc = new Scanner(System.in);
         while (!correct) {
-            dia = sc2.nextInt();
+            dia = sc.nextInt();
             if (dia>=1 && dia<=28) {
                 correct = true;
             }
@@ -60,37 +69,46 @@ public class CreateOffer {
         System.out.println("¿En qué año quiere que se acabe su oferta? -- Introduzca un año de cuatro cifras posterior o igual al actual");
         Integer año = 0;
         correct = false;
+        sc = new Scanner(System.in);
         while (!correct) {
-            año = sc2.nextInt();
-            if (año >= Calendar.YEAR && año.toString().length() == 4) {
+            año = sc.nextInt();
+            if (año >= 2021 && año.toString().length() == 4) {
                 correct = true;
             }
         }
-        Date fechaLímite = new Date(dia, mes, año);
+        int year = (año.intValue()) - 1900;
+        Date fechaLímite = new Date(year, mes, dia);
 
         //Para terminar, se crea la oferta al completo y se añade a la lista de ofertas sin publicar para que el admin la revise.
         Offer finalOffer = new Offer(descripcion, precio, fechaLímite, false, false, navesOferta);
         admin.addOffer(finalOffer);
+        System.out.println("Se ha enviado la oferta al admin para que se revise, en breves será publicada\nVolviendo al menú principal...\n");
         return true;
     }
 
-    private Nave[] seleccionarNaves(Nave[] navesVenta) {
+    private Nave[] seleccionarNaves(List<Nave> navesVenta) {
+        Set<Integer> chosenNaves = new HashSet<>();
         Scanner sc = new Scanner(System.in);
         boolean stop = false;
         int i = 0;
         int numNave=0;
         Nave[] navesOferta = new Nave[5];
         while (!stop) {
-        System.out.println("\nIntroduzca el número de la oferta que desea vender");
+        System.out.println("\nIntroduzca el número de la nave que desea vender");
         numNave = sc.nextInt();
-        while (numNave < 1 && numNave > (navesVenta.length - 1)) {
+        while (numNave < 1 && numNave > (navesVenta.size() - 1)) {
             numNave = sc.nextInt();
         }
         System.out.println("Has seleccionado la nave " + numNave);
-        navesOferta[i] = navesVenta[numNave];
-        i++;
+        if (!chosenNaves.contains(numNave)) {
+            chosenNaves.add(numNave);
+            navesOferta[i] = navesVenta.get(numNave-1);
+            i++;
+        } else {
+            System.out.println("\nEsta nave ya ha sido seleccionada\n");
+        }
         System.out.println("¿Desea seleccionar más naves? -- Pulse S para confirmar y N para denegar");
-        String option="0";
+        String option = sc.next();
         while (!option.equals("S") && !option.equals("N")) {
             option = sc.next();
         }

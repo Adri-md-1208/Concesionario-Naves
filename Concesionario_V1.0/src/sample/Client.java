@@ -1,6 +1,8 @@
 package sample;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Client implements Serializable {
     private String name;
@@ -14,10 +16,10 @@ public class Client implements Serializable {
     private int warnings;
     private boolean piracy;
     private boolean fraud;
-    private Nave navesVenta;
+    private List<Nave> navesVenta = new ArrayList<>();
 
 
-    public Client(String name, String planet, String specie, int id, String nick, String password, String email, boolean license, int warnings, boolean piracy, boolean fraud, Nave naves) {
+    public Client(String name, String planet, String specie, int id, String nick, String password, String email, boolean license, int warnings, boolean piracy, boolean fraud, List<Nave> navesVenta) {
         this.name = name;
         this.planet = planet;
         this.specie = specie;
@@ -29,9 +31,8 @@ public class Client implements Serializable {
         this.warnings = warnings;
         this.piracy = piracy;
         this.fraud = fraud;
-        this.navesVenta = naves;
+        this.navesVenta = navesVenta;
     }
-
 
     public String getName() {
         return name;
@@ -87,11 +88,11 @@ public class Client implements Serializable {
         this.fraud = fraud;
     }
 
-    public void setNavesVenta(Nave navesVenta) {
+    public void setNavesVenta(List<Nave> navesVenta) {
         this.navesVenta = navesVenta;
     }
 
-    public Nave getNavesVenta() {
+    public List<Nave> getNavesVenta() {
         return navesVenta;
     }
 }

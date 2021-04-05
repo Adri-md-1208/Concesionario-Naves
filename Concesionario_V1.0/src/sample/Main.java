@@ -11,8 +11,6 @@ public class Main {
             System.out.println("TU CONCESIONARIO DE NAVES FAVORITO");
             ClientManager manager = new ClientManager();
             manager.management();
-
-
         }
     }
 }

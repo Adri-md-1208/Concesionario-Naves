@@ -6,7 +6,7 @@ import java.util.Date;
 public class Offer implements Serializable {
     private String description;
     private double prize;
-    private Date limit;
+    private Date dateLimit;
     private boolean isPublished;
     private boolean isBought;
     private Nave[] naves;
@@ -14,7 +14,7 @@ public class Offer implements Serializable {
     public Offer(String description, double prize, Date dateLimit, boolean isPublished, boolean isBought, Nave[] naves) {
         this.description = description;
         this.prize = prize;
-        this.limit = limit;
+        this.dateLimit = dateLimit;
         this.isPublished = isPublished;
         this.isBought = isBought;
         this.naves = naves;
@@ -37,7 +37,7 @@ public class Offer implements Serializable {
     }
 
     public Date getLimit() {
-        return limit;
+        return dateLimit;
     }
 
     public double getPower(){

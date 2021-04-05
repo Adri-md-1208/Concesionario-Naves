@@ -39,7 +39,7 @@ public class AdminMenu {
             }
             return false;
         } catch (Exception noFile) {
-            System.out.println("No hay ofertas para revisar");
+            System.out.println("No hay ofertas para revisar\n");
             return false;
         }
     }
