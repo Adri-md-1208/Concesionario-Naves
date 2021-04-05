@@ -32,7 +32,7 @@ public class Admin {
 
     public List<Offer> getPublishedOffers() throws IOException, ClassNotFoundException {
         fileManager.readOffers();
-        for (int n=0; n<=offerList.size(); n++){
+        for (int n=0; n<offerList.size(); n++){
             if(!offerList.get(n).isPublished()){
                 offerList.remove(n);
             }
@@ -43,7 +43,7 @@ public class Admin {
 
     public List<Offer> getUnpublishedOffers() throws IOException, ClassNotFoundException {
         fileManager.readOffers();
-        for (int n=0; n<=offerList.size(); n++){
+        for (int n=0; n<offerList.size(); n++){
             if(offerList.get(n).isPublished()){
                 offerList.remove(n);
             }
@@ -59,7 +59,7 @@ public class Admin {
         fileManager.writeOffer(offer);
     }
 
-    public void deleteOffer(Offer offer) throws IOException {
+    public void deleteOffer(Offer offer) throws IOException, ClassNotFoundException {
         fileManager.deleteOffer(offer);
     }
 
@@ -107,6 +107,7 @@ public class Admin {
         fileManager.writeShip(ship);
     }
     public List<Nave> getShipList() throws IOException, ClassNotFoundException {
+        shipList.clear();
         fileManager.readShips();
         return shipList;
     }

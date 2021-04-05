@@ -146,7 +146,7 @@ public class FileManager {
         }
     }
 
-    public void deleteOffer(Offer offerToRemove) throws IOException {
+    public void deleteOffer(Offer offerToRemove) throws IOException, ClassNotFoundException {
         offerList.remove(offerToRemove);
         offerFile.delete();
         for (Offer offerToAdd : offerList) {

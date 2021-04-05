@@ -19,20 +19,30 @@ public class ClientManager {
         //FilesCreator filesCreator = new FilesCreator();
         //filesCreator.ClientCreator();
         //filesCreator.ShipCreator();
-
         //System.out.println(admin.getShipList().get(1).getPropietario().getEmail());
+
+
         Login login = new Login();
-        client  = login.login();
-        if (client!=null) {
-            TipoUsuario = admin.evaluarTipoUsuario(client);
-            System.out.println("\nSe está evaluando ...\n");
-            if (TipoUsuario==0) {
-                System.out.println("Está usted bloqueado en nuestro sistema.");
-                return false;
+        client = login.login();
+        try {
+            if (client.getId() == 0) {
+                AdminMenu adminMenu = new AdminMenu();
+                adminMenu.run();
             }
-            operationMenu.printMenu(TipoUsuario, client);
+
+            else if (client != null) {
+                TipoUsuario = admin.evaluarTipoUsuario(client);
+                System.out.println("\nSe está evaluando su usuario...\n");
+                if (TipoUsuario == 0) {
+                    System.out.println("Está usted bloqueado en nuestro sistema.");
+                    return false;
+                }
+                operationMenu.printMenu(TipoUsuario, client);
+            }
+            return true;
+        } catch (Exception noClient) {
+            return true;
         }
-        return true;
     }
 
     public int getTipoUsuario() {

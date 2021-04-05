@@ -23,4 +23,20 @@ public class Transaction {
     public Client getSeller() {
         return seller;
     }
+
+    public void setPurchaser(Client purchaser) {
+        this.purchaser = purchaser;
+    }
+
+    public void setSeller(Client seller) {
+        this.seller = seller;
+    }
+
+    public void setOffer(Offer offer) {
+        this.offer = offer;
+    }
+
+    public void setTime(Date time) {
+        this.time = time;
+    }
 }
