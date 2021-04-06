@@ -10,9 +10,9 @@ public class Offer implements Serializable {
     private Date dateLimit;
     private boolean isPublished;
     private boolean isBought;
-    private List<Nave> naves;
+    private List<String> naves;
 
-    public Offer(String description, double prize, Date dateLimit, boolean isPublished, boolean isBought, List<Nave> naves) {
+    public Offer(String description, double prize, Date dateLimit, boolean isPublished, boolean isBought, List<String> naves) {
         this.description = description;
         this.prize = prize;
         this.dateLimit = dateLimit;
@@ -21,11 +21,11 @@ public class Offer implements Serializable {
         this.naves = naves;
     }
 
-    public List<Nave> getNaves() {
+    public List<String> getNaves() {
         return naves;
     }
 
-    public void setNaves(List<Nave> naves) {
+    public void setNaves(List<String> naves) {
         this.naves = naves;
     }
 

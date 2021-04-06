@@ -29,7 +29,7 @@ public class CreateOffer {
             contador++;
         }
         //Leer opcion elegida y guardarlo en Offer oferta.
-        List<Nave> navesOferta = seleccionarNaves(navesVenta);
+        List<String> navesOferta = seleccionarNaves(navesVenta);
 
         //Pedir una descripción, un precio y una ¿¿¿fecha límite???
         System.out.println("Introduzca el precio de su oferta");
@@ -88,13 +88,13 @@ public class CreateOffer {
         return true;
     }
 
-    private List<Nave> seleccionarNaves(List<Nave> navesVenta) {
+    private List<String> seleccionarNaves(List<Nave> navesVenta) {
         Set<Integer> chosenNaves = new HashSet<>();
         Scanner sc = new Scanner(System.in);
         boolean stop = false;
         int i = 0;
         int numNave=0;
-        List<Nave> navesOferta = new ArrayList<>();
+        List<String> navesOferta = new ArrayList<>();
         while (!stop) {
         System.out.println("\nIntroduzca el número de la nave que desea vender");
         numNave = sc.nextInt();
@@ -104,7 +104,7 @@ public class CreateOffer {
         System.out.println("Has seleccionado la nave " + numNave);
         if (!chosenNaves.contains(numNave)) {
             chosenNaves.add(numNave);
-            navesOferta.add(i, navesVenta.get(numNave-1));
+            navesOferta.add(i, navesVenta.get(numNave-1).getNumeroRegistro());
             i++;
         } else {
             System.out.println("\nEsta nave ya ha sido seleccionada\n");

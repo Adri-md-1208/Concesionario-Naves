@@ -18,8 +18,7 @@ public class ClientManager {
 
         /*FilesCreator filesCreator = new FilesCreator();
         filesCreator.ClientCreator();
-        filesCreator.ShipCreator();
-        System.out.println(admin.getShipList().get(1).getPropietario().getEmail());*/
+        filesCreator.ShipCreator();*/
 
 
         Login login = new Login();

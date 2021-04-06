@@ -123,5 +123,15 @@ public class Admin {
         fileManager.readShips();
         return shipList;
     }
+
+    public Nave searchShip(String numeroRegistro) throws IOException, ClassNotFoundException {
+     List<Nave> listToSearch= getShipList();
+     for(Nave searchedNave : listToSearch){
+         if(searchedNave.getNumeroRegistro().equals(numeroRegistro)){
+             return searchedNave;
+         }
+     }
+     return null;
+    }
 }
 
