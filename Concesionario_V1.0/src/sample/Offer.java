@@ -2,6 +2,7 @@ package sample;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 public class Offer implements Serializable {
     private String description;
@@ -9,9 +10,9 @@ public class Offer implements Serializable {
     private Date dateLimit;
     private boolean isPublished;
     private boolean isBought;
-    private Nave[] naves;
+    private List<Nave> naves;
 
-    public Offer(String description, double prize, Date dateLimit, boolean isPublished, boolean isBought, Nave[] naves) {
+    public Offer(String description, double prize, Date dateLimit, boolean isPublished, boolean isBought, List<Nave> naves) {
         this.description = description;
         this.prize = prize;
         this.dateLimit = dateLimit;
@@ -20,11 +21,11 @@ public class Offer implements Serializable {
         this.naves = naves;
     }
 
-    public Nave[] getNaves() {
+    public List<Nave> getNaves() {
         return naves;
     }
 
-    public void setNaves(Nave[] naves) {
+    public void setNaves(List<Nave> naves) {
         this.naves = naves;
     }
 

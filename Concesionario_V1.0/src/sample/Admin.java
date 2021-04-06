@@ -26,30 +26,42 @@ public class Admin {
             return 2; //Sin licencia especial = No kromagg
         }else{
             return 3; //Sin limitaciones
-            }
         }
+    }
 
 
     public List<Offer> getPublishedOffers() throws IOException, ClassNotFoundException {
         fileManager.readOffers();
-        for (int n=0; n<offerList.size(); n++){
-            if(!offerList.get(n).isPublished()){
-                offerList.remove(n);
-            }
-
+        List <Offer> publishedOfferList = new ArrayList<>();
+        for (Offer offerToClone: offerList) {
+            publishedOfferList.add(offerToClone);
         }
-        return offerList;
+        int n=1;
+        int range= publishedOfferList.size();
+        while(range>=n){
+            if(!publishedOfferList.get(range-n).isPublished()){
+                publishedOfferList.remove(range-n);
+            }
+            n++;
+        }
+        return publishedOfferList;
     }
 
     public List<Offer> getUnpublishedOffers() throws IOException, ClassNotFoundException {
         fileManager.readOffers();
-        for (int n=0; n<offerList.size(); n++){
-            if(offerList.get(n).isPublished()){
-                offerList.remove(n);
-            }
-
+        List <Offer> unpublishedOfferList = new ArrayList<>();
+        for (Offer offerToClone: offerList) {
+            unpublishedOfferList.add(offerToClone);
         }
-        return offerList;
+        int n=1;
+        int range= unpublishedOfferList.size();
+        while(range>=n){
+            if(unpublishedOfferList.get(range-n).isPublished()){
+                unpublishedOfferList.remove(range-n);
+            }
+            n++;
+        }
+        return unpublishedOfferList;
     }
 
     public void addOffer(Offer offer) throws IOException {
@@ -111,6 +123,5 @@ public class Admin {
         fileManager.readShips();
         return shipList;
     }
-    }
-
+}
 

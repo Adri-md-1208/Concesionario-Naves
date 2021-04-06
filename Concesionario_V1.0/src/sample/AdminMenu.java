@@ -10,6 +10,10 @@ public class AdminMenu {
         try {
             Admin admin = new Admin();
             List<Offer> unpublishedOfferList = admin.getUnpublishedOffers();
+            if (unpublishedOfferList.isEmpty()) {
+                System.out.println("No hay ofertas para revisar\n");
+                return false;
+            }
             int n = 1;
             System.out.println("Seleccione una oferta para revisar:");
             for (Offer offer : unpublishedOfferList) {

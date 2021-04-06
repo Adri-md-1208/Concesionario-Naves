@@ -127,6 +127,7 @@ public class FileManager {
         if (clientFile.exists()) {
             ObjectInputStream reader = new ObjectInputStream(new FileInputStream(offerFile));
             try {
+                offerList.clear();
                 while (true) {
                     Offer offer = (Offer) reader.readObject();
                     offerList.add(offer);
@@ -138,7 +139,6 @@ public class FileManager {
     }
 
     public void modifyOfferVisibility(Offer offer, boolean status) throws IOException, ClassNotFoundException {
-        readOffers();
         offerList.get(offerList.indexOf(offer)).setPublished(status);
         offerFile.delete();
         for(Offer offerToAdd : offerList){
@@ -206,4 +206,3 @@ public class FileManager {
     }
 
 }
-
