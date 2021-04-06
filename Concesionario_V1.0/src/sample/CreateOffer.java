@@ -96,7 +96,7 @@ public class CreateOffer {
         while (!stop) {
         System.out.println("\nIntroduzca el número de la nave que desea vender");
         numNave = sc.nextInt();
-        while (numNave < 1 && numNave > (navesVenta.size() - 1)) {
+        while (numNave < 1 || numNave > (navesVenta.size())) {
             numNave = sc.nextInt();
         }
         System.out.println("Has seleccionado la nave " + numNave);

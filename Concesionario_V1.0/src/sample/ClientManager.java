@@ -34,7 +34,7 @@ public class ClientManager {
                 TipoUsuario = admin.evaluarTipoUsuario(client);
                 System.out.println("\nSe está evaluando su usuario...\n");
                 if (TipoUsuario == 0) {
-                    System.out.println("Está usted bloqueado en nuestro sistema.");
+                    System.out.println("Está usted bloqueado en nuestro sistema\n");
                     return false;
                 }
                 operationMenu.printMenu(TipoUsuario, client);
