@@ -8,16 +8,21 @@ public class BuyOffer {
     private int contador = 1;
     private List<Offer> listaOfertas = new ArrayList<>();
     private List<Offer> ofertasVálidas = new ArrayList<>();
+    private List<Nave> navesTotales = new ArrayList<>();
 
     public void verOfertas(int TipoUsuario, Client client) throws IOException, ClassNotFoundException {
         contador = 1;
         Admin admin = new Admin();
         listaOfertas = admin.getPublishedOffers();
         System.out.println("Selecciona la oferta que desee comprar");
+
         switch (TipoUsuario) {
             case 1: //Piratería espacial (Solo cargueros)
                 for (Offer oferta : listaOfertas) {
-                    List<Nave> navesTotales = oferta.getNaves();
+                    List<String> numRegTotales = oferta.getNaves();
+                    for (String numReg : numRegTotales) {
+                        navesTotales.add(admin.searchShip(numReg));
+                    }
                     if (!navesTotales.get(0).getPropietario().getEmail().equals(client.getEmail())) {
                         if (!navesTotales.get(0).getPropietario().getEmail().equals(client.getEmail())) {
                             System.out.println("Oferta " + contador + ":");
@@ -27,10 +32,11 @@ public class BuyOffer {
                                     if (navesTotales.get(i).getClass().getName().equals("Carguero") || (navesTotales.get(i).getClass().getName().equals("Caza"))) {
                                         System.out.println("Tipo " + navesTotales.get(i).getClass().getSimpleName() + ", Núm.Registro: " + navesTotales.get(i).getNumeroRegistro() +
                                                 ", Propietario: " + navesTotales.get(i).getPropietario().getNick() + ", Tripulantes: " + navesTotales.get(i).getNumTripulantes());
-                                        System.out.println("Precio: " + oferta.getPrize());
                                     }
                                 }
                             }
+                            navesTotales = new ArrayList<>();
+                            System.out.println("Precio: " + oferta.getPrize());
                             contador++;
                         }
                     }
@@ -39,7 +45,10 @@ public class BuyOffer {
 
             case 2: //Kromagg sin licencia (Solo cargueros y cazas)
                 for (Offer oferta : listaOfertas) {
-                    List<Nave> navesTotales = oferta.getNaves();
+                    List<String> numRegTotales = oferta.getNaves();
+                    for (String numReg : numRegTotales) {
+                        navesTotales.add(admin.searchShip(numReg));
+                    }
                     if (!navesTotales.get(0).getPropietario().getEmail().equals(client.getEmail())) {
                         System.out.println("Oferta " + contador + ":");
                         ofertasVálidas.add(oferta); //El forEach solo coge ofertas distintas a null.
@@ -48,10 +57,11 @@ public class BuyOffer {
                                 if (navesTotales.get(i).getClass().getName().equals("Carguero") || (navesTotales.get(i).getClass().getName().equals("Caza"))) {
                                     System.out.println("Tipo " + navesTotales.get(i).getClass().getSimpleName() + ", Núm.Registro: " + navesTotales.get(i).getNumeroRegistro() +
                                             ", Propietario: " + navesTotales.get(i).getPropietario().getNick() + ", Tripulantes: " + navesTotales.get(i).getNumTripulantes());
-                                    System.out.println("Precio: " + oferta.getPrize());
                                 }
                             }
                         }
+                        navesTotales = new ArrayList<>();
+                        System.out.println("Precio: " + oferta.getPrize());
                         contador++;
                     }
                 }
@@ -59,7 +69,10 @@ public class BuyOffer {
 
             case 3: //Kromagg con licencia y el resto (Todas las naves)
                 for (Offer oferta : listaOfertas) {
-                    List<Nave> navesTotales = oferta.getNaves();
+                    List<String> numRegTotales = oferta.getNaves();
+                    for (String numReg : numRegTotales) {
+                        navesTotales.add(admin.searchShip(numReg));
+                    }
                     if (!navesTotales.get(0).getPropietario().getEmail().equals(client.getEmail())) {
                         System.out.println("Oferta " + contador + ":");
                         ofertasVálidas.add(oferta); //El forEach solo coge ofertas distintas a null.
@@ -67,9 +80,10 @@ public class BuyOffer {
                             if (navesTotales.get(i) != null) {
                                 System.out.println("Tipo " + navesTotales.get(i).getClass().getSimpleName() + ", Núm.Registro: " + navesTotales.get(i).getNumeroRegistro() +
                                         ", Propietario: " + navesTotales.get(i).getPropietario().getNick() + ", Tripulantes: " + navesTotales.get(i).getNumTripulantes());
-                                System.out.println("Precio: " + oferta.getPrize());
                             }
                         }
+                        navesTotales = new ArrayList<>();
+                        System.out.println("Precio: " + oferta.getPrize());
                         contador++;
                     }
                 }
@@ -101,14 +115,17 @@ public class BuyOffer {
         return ofertasVálidas.get(numOffer);
     }
 
-    private Transaction comprarOferta(Offer oferta, Client purchaser) {
+    private Transaction comprarOferta(Offer oferta, Client purchaser) throws IOException, ClassNotFoundException {
         Transaction transaction = new Transaction();
         transaction.setPurchaser(purchaser);
-        List<Nave> navesEnOferta = oferta.getNaves();
-        Client seller = navesEnOferta.get(0).getPropietario();
+        List<String> navesEnOferta = oferta.getNaves();
+        Admin admin = new Admin();
+        Nave navePropietario = admin.searchShip(navesEnOferta.get(0));
+        Client seller = navePropietario.getPropietario();
         transaction.setSeller(seller);
-        for (Nave nave : navesEnOferta) {
-            nave.setPropietario(purchaser);     //La nave pasa a ser del cliente comprador.
+        for (String numReg : navesEnOferta) {
+            Nave nave = admin.searchShip(numReg);   //La nave pasa a ser del cliente comprador.
+            nave.setPropietario(purchaser);
         }
         transaction.setOffer(oferta);
         Date date = new Date(Calendar.YEAR, Calendar.MONTH, Calendar.DAY_OF_MONTH);
