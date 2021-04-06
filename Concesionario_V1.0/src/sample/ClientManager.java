@@ -26,7 +26,10 @@ public class ClientManager {
         try {
             if (client.getId() == 0) {
                 AdminMenu adminMenu = new AdminMenu();
-                adminMenu.run();
+                Boolean repeat = true;
+                while (repeat){
+                    repeat = adminMenu.run();
+                };
             }
 
             else if (client != null) {
