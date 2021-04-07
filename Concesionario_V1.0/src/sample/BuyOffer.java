@@ -5,65 +5,74 @@ import java.util.*;
 
 public class BuyOffer {
 
-    private int contador = 1;
-    private List<Offer> listaOfertas = new ArrayList<>();
     private List<Offer> ofertasVálidas = new ArrayList<>();
     private List<Nave> navesTotales = new ArrayList<>();
 
-    public void verOfertas(int TipoUsuario, Client client) throws IOException, ClassNotFoundException {
-        contador = 1;
+    public boolean verOfertas(int TipoUsuario, Client client) throws IOException, ClassNotFoundException {
+        boolean ofertaVálida = false;
+        int contador = 1;
         Admin admin = new Admin();
-        listaOfertas = admin.getPublishedOffers();
+        List<Offer> listaOfertas = admin.getPublishedOffers();
         System.out.println("Selecciona la oferta que desee comprar");
 
         switch (TipoUsuario) {
             case 1: //Piratería espacial (Solo cargueros)
                 for (Offer oferta : listaOfertas) {
-                    List<String> numRegTotales = oferta.getNaves();
-                    for (String numReg : numRegTotales) {
-                        navesTotales.add(admin.searchShip(numReg));
-                    }
-                    if (!navesTotales.get(0).getPropietario().getEmail().equals(client.getEmail())) {
-                        if (!navesTotales.get(0).getPropietario().getEmail().equals(client.getEmail())) {
-                            System.out.println("Oferta " + contador + ":");
-                            ofertasVálidas.add(oferta); //El forEach solo coge ofertas distintas a null.
-                            for (int i = 0; i < navesTotales.size(); i++) {
-                                if (navesTotales.get(i) != null) {
-                                    if (navesTotales.get(i).getClass().getName().equals("Carguero") || (navesTotales.get(i).getClass().getName().equals("Caza"))) {
-                                        System.out.println("Tipo " + navesTotales.get(i).getClass().getSimpleName() + ", Núm.Registro: " + navesTotales.get(i).getNumeroRegistro() +
-                                                ", Propietario: " + navesTotales.get(i).getPropietario().getNick() + ", Tripulantes: " + navesTotales.get(i).getNumTripulantes());
-                                    }
-                                }
-                            }
-                            navesTotales = new ArrayList<>();
-                            System.out.println("Precio: " + oferta.getPrize());
-                            contador++;
-                        }
-                    }
-                }
-                break;
-
-            case 2: //Kromagg sin licencia (Solo cargueros y cazas)
-                for (Offer oferta : listaOfertas) {
+                    ofertaVálida = false;
                     List<String> numRegTotales = oferta.getNaves();
                     for (String numReg : numRegTotales) {
                         navesTotales.add(admin.searchShip(numReg));
                     }
                     if (!navesTotales.get(0).getPropietario().getEmail().equals(client.getEmail())) {
                         System.out.println("Oferta " + contador + ":");
-                        ofertasVálidas.add(oferta); //El forEach solo coge ofertas distintas a null.
-                        for (int i = 0; i < navesTotales.size(); i++) {
-                            if (navesTotales.get(i) != null) {
-                                if (navesTotales.get(i).getClass().getName().equals("Carguero") || (navesTotales.get(i).getClass().getName().equals("Caza"))) {
-                                    System.out.println("Tipo " + navesTotales.get(i).getClass().getSimpleName() + ", Núm.Registro: " + navesTotales.get(i).getNumeroRegistro() +
-                                            ", Propietario: " + navesTotales.get(i).getPropietario().getNick() + ", Tripulantes: " + navesTotales.get(i).getNumTripulantes());
-                                }
+                        //El forEach solo coge ofertas distintas a null.
+                        for (Nave nave : navesTotales) {
+                            if (nave.getClass().getSimpleName().equals("Carguero")) {
+                                System.out.println("Tipo " + nave.getClass().getSimpleName() + ", Núm.Registro: " + nave.getNumeroRegistro() +
+                                        ", Propietario: " + nave.getPropietario().getNick() + ", Tripulantes: " + nave.getNumTripulantes());
+                                ofertaVálida = true;
+                            } else {
+                                System.out.println("Nave no válida para su usuario -- Oferta cancelada");
+
                             }
                         }
-                        navesTotales = new ArrayList<>();
-                        System.out.println("Precio: " + oferta.getPrize());
-                        contador++;
+                        if (ofertaVálida) {
+                            ofertasVálidas.add(oferta);
+                            System.out.println("Precio: " + oferta.getPrize());
+                            contador++;
+                        }
                     }
+                    navesTotales = new ArrayList<>();
+                }
+                break;
+
+            case 2: //Kromagg sin licencia (Solo cargueros y cazas)
+                for (Offer oferta : listaOfertas) {
+                    ofertaVálida = false;
+                    List<String> numRegTotales = oferta.getNaves();
+                    for (String numReg : numRegTotales) {
+                        navesTotales.add(admin.searchShip(numReg));
+                    }
+                    if (!navesTotales.get(0).getPropietario().getEmail().equals(client.getEmail())) {
+                        System.out.println("Oferta " + contador + ":");
+                        //El forEach solo coge ofertas distintas a null.
+                        for (Nave nave : navesTotales) {
+                            if (nave.getClass().getSimpleName().equals("Carguero") || (nave.getClass().getSimpleName().equals("Caza"))) {
+                                System.out.println("Tipo " + nave.getClass().getSimpleName() + ", Núm.Registro: " + nave.getNumeroRegistro() +
+                                        ", Propietario: " + nave.getPropietario().getNick() + ", Tripulantes: " + nave.getNumTripulantes());
+                                ofertaVálida = true;
+                            } else {
+                                System.out.println("Nave no válida para su usuario -- Oferta cancelada");
+
+                            }
+                        }
+                        if (ofertaVálida) {
+                            ofertasVálidas.add(oferta);
+                            System.out.println("Precio: " + oferta.getPrize());
+                            contador++;
+                        }
+                    }
+                    navesTotales = new ArrayList<>();
                 }
                 break;
 
@@ -76,16 +85,14 @@ public class BuyOffer {
                     if (!navesTotales.get(0).getPropietario().getEmail().equals(client.getEmail())) {
                         System.out.println("Oferta " + contador + ":");
                         ofertasVálidas.add(oferta); //El forEach solo coge ofertas distintas a null.
-                        for (int i = 0; i < navesTotales.size(); i++) {
-                            if (navesTotales.get(i) != null) {
-                                System.out.println("Tipo " + navesTotales.get(i).getClass().getSimpleName() + ", Núm.Registro: " + navesTotales.get(i).getNumeroRegistro() +
-                                        ", Propietario: " + navesTotales.get(i).getPropietario().getNick() + ", Tripulantes: " + navesTotales.get(i).getNumTripulantes());
-                            }
+                        for (Nave nave : navesTotales) {
+                            System.out.println("Tipo " + nave.getClass().getSimpleName() + ", Núm.Registro: " + nave.getNumeroRegistro() +
+                                    ", Propietario: " + nave.getPropietario().getNick() + ", Tripulantes: " + nave.getNumTripulantes());
                         }
-                        navesTotales = new ArrayList<>();
                         System.out.println("Precio: " + oferta.getPrize());
                         contador++;
                     }
+                    navesTotales = new ArrayList<>();
                 }
                 break;
         }
@@ -96,10 +103,17 @@ public class BuyOffer {
             //Ya se tiene la oferta deseada, por lo que se creará la transacción con el método comprarOferta().
             Transaction transaction = comprarOferta(chosenOffer, client);
             //Se añade la transacción al registro.
+            if (transaction==null) {
+                return false;
+            }
             admin.addTransaction(transaction);
+
             //QUEDA COMENTARIO Y VALORACIÓN
+
+            return true;
         } else {
             System.out.println("No hay ofertas disponibles\n");
+            return true;
         }
     }
 
@@ -108,11 +122,11 @@ public class BuyOffer {
         System.out.println("\nIntroduzca el número de la oferta que desea comprar");
         Scanner sc = new Scanner(System.in);
         int numOffer = sc.nextInt();
-        while (numOffer < 1 && numOffer > (ofertasVálidas.size())) {
+        while (numOffer < 1 || numOffer > (ofertasVálidas.size())) {
             numOffer = sc.nextInt();
         }
-        System.out.println("Has seleccionado la oferta " + numOffer + " por un precio de " + ofertasVálidas.get(numOffer).getPrize() + " euros");
-        return ofertasVálidas.get(numOffer);
+        System.out.println("Has seleccionado la oferta " + numOffer + " por un precio de " + ofertasVálidas.get(numOffer - 1).getPrize() + " euros\n");
+        return ofertasVálidas.get(numOffer - 1);
     }
 
     private Transaction comprarOferta(Offer oferta, Client purchaser) throws IOException, ClassNotFoundException {
@@ -126,13 +140,23 @@ public class BuyOffer {
         for (String numReg : navesEnOferta) {
             Nave nave = admin.searchShip(numReg);   //La nave pasa a ser del cliente comprador.
             nave.setPropietario(purchaser);
+            //updateProperty(purchaser, nave);
+            //updateSoldOffer(oferta); No es necesario porque se borra con el siguiente método
         }
         transaction.setOffer(oferta);
-        Date date = new Date(Calendar.YEAR, Calendar.MONTH, Calendar.DAY_OF_MONTH);
+        //admin.deleteOffer(oferta); //La oferta deja de estar a la venta -- No funciona
+        Date date = new Date(Calendar.YEAR + 120, Calendar.MONTH, Calendar.DAY_OF_MONTH);
         transaction.setTime(date);
-        System.out.println("Se ha creado una transacción: Venta de la oferta " + oferta.getDescription() + " de " + seller.getNick() + " a "
-                + purchaser.getNick() + " el día " + date.toString());
-        return transaction;
+        System.out.println("¿Está seguro de que quiere comprar la oferta '" + oferta.getDescription() + "' por un precio de " + oferta.getPrize() + " euros? -- Pulse S en caso afirmativo y N en caso negativo");
+        Scanner sc = new Scanner(System.in);
+        if (sc.next().equals("S")) {
+            System.out.println("Se ha creado una transacción: Venta de la oferta '" + oferta.getDescription() + "' de " + seller.getNick() + " a "
+                    + purchaser.getNick() + " el día " + date.getDay() + " del mes " + date.getMonth() + ".\n");
+            return transaction;
+        } else {
+            System.out.println("Se ha cancelado la transacción");
+            return null;
+        }
     }
 
 }

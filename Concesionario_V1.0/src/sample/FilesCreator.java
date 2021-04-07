@@ -23,10 +23,14 @@ public class FilesCreator {
         Client client4 = new Client("Adrian", "Saturn",
                 "Human", 0023, "MoralesDato", "3366",
                 "AMD@gmail.com", false, 0, false, false, null);
+        Client client5 = new Client("Kromi", "Geonosis",
+                "Kromagg", 7823, "Xx_Kromi_xX", "kromi",
+                "kromi@gmail.com", false, 0, false, false, null);
         clientList.add(client1);
         clientList.add(client2);
         clientList.add(client3);
         clientList.add(client4);
+        clientList.add(client5);
         for (Client clientToAdd : clientList){
             admin.addClient(clientToAdd);
         }

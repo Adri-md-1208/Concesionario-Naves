@@ -1,6 +1,8 @@
 package sample;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 
 public class FileManager {
@@ -140,15 +142,24 @@ public class FileManager {
 
     public void modifyOfferVisibility(Offer offer, boolean status) throws IOException, ClassNotFoundException {
         offerList.get(offerList.indexOf(offer)).setPublished(status);
-        offerFile.delete();
+        //offerFile.delete();
+        Boolean firstTime = true;
         for(Offer offerToAdd : offerList){
-            writeOffer(offerToAdd);
+            if (firstTime) {
+                ObjectOutputStream writer = new ObjectOutputStream(new FileOutputStream(offerFile));
+                writer.writeObject(offerToAdd);
+                firstTime=false;
+            }
+            else {
+                writeOffer(offerToAdd);
+            }
         }
     }
 
     public void deleteOffer(Offer offerToRemove) throws IOException, ClassNotFoundException {
         offerList.remove(offerToRemove);
         offerFile.delete();
+        Files.delete(Path.of("Offers.dat"));
         for (Offer offerToAdd : offerList) {
             writeOffer(offerToAdd);
         }
