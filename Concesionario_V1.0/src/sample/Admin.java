@@ -97,13 +97,21 @@ public class Admin {
     }
 
     public List<Transaction> getIndividualTransaction(Client client) throws IOException, ClassNotFoundException {
+        transactionList.clear();
         fileManager.readTransactions();
-        for (int n=0;n<=transactionList.size(); n++){
-            if(transactionList.get(n).getPurchaser().getId()!=client.getId() && transactionList.get(n).getSeller().getId()!=client.getId()){
-                transactionList.remove(n);
-            }
+        List<Transaction> individualTransactionList = new ArrayList<>();
+        for (Transaction transactionToAdd : transactionList){
+            individualTransactionList.add(transactionToAdd);
         }
-        return transactionList;
+        int n=1;
+        int range= individualTransactionList.size();
+        while(range>=n){
+            if(!individualTransactionList.get(range-n).getPurchaser().equals(client.getEmail())&&!individualTransactionList.get(range-n).getSeller().equals(client.getEmail())){
+                individualTransactionList.remove(range-n);
+            }
+            n++;
+        }
+        return individualTransactionList;
     }
 
     public void addClient(Client client) throws IOException {
@@ -132,6 +140,21 @@ public class Admin {
          }
      }
      return null;
+    }
+
+    public void changePropietario(Nave nave, Client newPropietario) throws IOException, ClassNotFoundException {
+        /*getClientList();
+        List<Client> clientListToSearch= new ArrayList<>();
+        for (Client clientToAdd : clientList){
+            clientListToSearch.add(clientToAdd);
+        }
+        Client newPropietario=null;
+        for (Client clientToSearch : clientListToSearch){
+            if(clientToSearch.getEmail().equals(emailNewPropietario)){
+                newPropietario=clientToSearch;
+            }
+        }*/
+        fileManager.changePropietario(nave,newPropietario);
     }
 }
 

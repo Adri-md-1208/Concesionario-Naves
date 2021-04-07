@@ -157,11 +157,20 @@ public class FileManager {
     }
 
     public void deleteOffer(Offer offerToRemove) throws IOException, ClassNotFoundException {
+        offerList.clear();
+        readOffers();
         offerList.remove(offerToRemove);
-        offerFile.delete();
-        Files.delete(Path.of("Offers.dat"));
-        for (Offer offerToAdd : offerList) {
-            writeOffer(offerToAdd);
+        //offerFile.delete();
+        Boolean firstTime = true;
+        for(Offer offerToAdd : offerList){
+            if (firstTime) {
+                ObjectOutputStream writer = new ObjectOutputStream(new FileOutputStream(offerFile));
+                writer.writeObject(offerToAdd);
+                firstTime=false;
+            }
+            else {
+                writeOffer(offerToAdd);
+            }
         }
     }
 
@@ -212,6 +221,21 @@ public class FileManager {
                 }
             } catch (EOFException e) {
 
+            }
+        }
+    }
+    public void changePropietario(Nave nave, Client newPropietario) throws IOException {
+        shipList.get(shipList.indexOf(nave)).setPropietario(newPropietario);
+        //offerFile.delete();
+        Boolean firstTime = true;
+        for(Nave naveToAdd : shipList){
+            if (firstTime) {
+                ObjectOutputStream writer = new ObjectOutputStream(new FileOutputStream(shipFile));
+                writer.writeObject(naveToAdd);
+                firstTime=false;
+            }
+            else {
+                writeShip(naveToAdd);
             }
         }
     }

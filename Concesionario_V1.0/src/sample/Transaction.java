@@ -1,10 +1,11 @@
 package sample;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Transaction {
-    private Client purchaser;
-    private Client seller;
+public class Transaction implements Serializable {
+    private String purchaser;
+    private String seller;
     private Offer offer;
     private Date time;
 
@@ -16,19 +17,19 @@ public class Transaction {
         return time;
     }
 
-    public Client getPurchaser() {
+    public String getPurchaser() {
         return purchaser;
     }
 
-    public Client getSeller() {
+    public String getSeller() {
         return seller;
     }
 
-    public void setPurchaser(Client purchaser) {
+    public void setPurchaser(String purchaser) {
         this.purchaser = purchaser;
     }
 
-    public void setSeller(Client seller) {
+    public void setSeller(String seller) {
         this.seller = seller;
     }
 

@@ -11,9 +11,22 @@ public class LastTransactions {
         List<Transaction> transactionList = admin.getIndividualTransaction(client);
         System.out.println("Estas son tus últimas transacciones: ");
         int i=0;
+        List<Client> clientList = admin.getClientList();
+        Client purchaser= null;
+        Client seller= null;
+        for(Transaction transaction : transactionList) {
+            for (Client clientToSearch : clientList) {
+                if (clientToSearch.getEmail().equals(transaction.getPurchaser())){
+                    purchaser=clientToSearch;
 
+            }
+                else if(clientToSearch.getEmail().equals(transaction.getSeller())){
+                    seller=clientToSearch;
+                }
+            }
+        }
         for (Transaction transaction : transactionList) {
-            System.out.println(contador + ". " + transaction.getPurchaser().getNick() + " ha comprado a " + transaction.getSeller().getNick()
+            System.out.println(contador + ". " + purchaser.getNick() + " ha comprado a " + seller.getNick()
             + " la oferta de " + transaction.getOffer().getDescription() + " por " + transaction.getOffer().getPrize() + " euros en el día " +
             transaction.getTime().getDay() + " del mes " + transaction.getTime().getMonth());
             i++;

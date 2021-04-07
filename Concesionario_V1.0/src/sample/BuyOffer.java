@@ -131,20 +131,28 @@ public class BuyOffer {
 
     private Transaction comprarOferta(Offer oferta, Client purchaser) throws IOException, ClassNotFoundException {
         Transaction transaction = new Transaction();
-        transaction.setPurchaser(purchaser);
+        transaction.setPurchaser(purchaser.getEmail());
         List<String> navesEnOferta = oferta.getNaves();
         Admin admin = new Admin();
         Nave navePropietario = admin.searchShip(navesEnOferta.get(0));
         Client seller = navePropietario.getPropietario();
-        transaction.setSeller(seller);
+        transaction.setSeller(seller.getEmail());
         for (String numReg : navesEnOferta) {
             Nave nave = admin.searchShip(numReg);   //La nave pasa a ser del cliente comprador.
             nave.setPropietario(purchaser);
-            //updateProperty(purchaser, nave);
+            admin.changePropietario(nave,purchaser);
             //updateSoldOffer(oferta); No es necesario porque se borra con el siguiente método
         }
         transaction.setOffer(oferta);
-        //admin.deleteOffer(oferta); //La oferta deja de estar a la venta -- No funciona
+        Offer offerToDelete=null;
+        for (Offer offerToSearch : admin.offerList){
+            if(oferta.getDescription().equals(offerToSearch)){
+                offerToDelete=offerToSearch;
+
+            }
+
+        }
+        admin.deleteOffer(offerToDelete);
         Date date = new Date(Calendar.YEAR + 120, Calendar.MONTH, Calendar.DAY_OF_MONTH);
         transaction.setTime(date);
         System.out.println("¿Está seguro de que quiere comprar la oferta '" + oferta.getDescription() + "' por un precio de " + oferta.getPrize() + " euros? -- Pulse S en caso afirmativo y N en caso negativo");
