@@ -32,28 +32,40 @@ public class CreateOffer {
         List<String> navesOferta = seleccionarNaves(navesVenta);
 
         //Pedir una descripción, un precio y una ¿¿¿fecha límite???
-        System.out.println("Introduzca el precio de su oferta");
+        System.out.println("Introduzca el precio de su oferta -- '0' para cancelar");
         Scanner sc = new Scanner(System.in);
         double precio=0;
         boolean precioVálido = false;
         while (!precioVálido) {
             if (sc.hasNextDouble()) {
                 precio = sc.nextDouble();
+                if (precio==0) {
+                    System.out.println("Operación Cancelada\n");
+                    return true;
+                }
                 precioVálido = true;
             } else {
                 System.out.println("Este precio no es posible");
                 sc = new Scanner(System.in);
             }
         }
-        System.out.println("Introduzca una descripción para su oferta");
+        System.out.println("Introduzca una descripción para su oferta -- '0' para cancelar");
         sc = new Scanner(System.in);
         String descripcion = sc.nextLine();
+        if (descripcion.equals("0")) {
+            System.out.println("Operación Cancelada\n");
+            return true;
+        }
         System.out.println("¿En qué mes quiere que se acabe su oferta? -- Introduzca un número del mes entre 1 y 12");
         int mes = 0;
         sc = new Scanner(System.in);
         boolean correct = false;
         while (!correct) {
             mes = sc.nextInt();
+            if (mes == 0) {
+                System.out.println("Operación Cancelada\n");
+                return true;
+            }
             if (mes>=1 && mes<=12) {
                 correct = true;
             }
@@ -64,6 +76,10 @@ public class CreateOffer {
         sc = new Scanner(System.in);
         while (!correct) {
             dia = sc.nextInt();
+            if (dia == 0) {
+                System.out.println("Operación Cancelada\n");
+                return true;
+            }
             if (dia>=1 && dia<=28) {
                 correct = true;
             }
@@ -74,6 +90,10 @@ public class CreateOffer {
         sc = new Scanner(System.in);
         while (!correct) {
             año = sc.nextInt();
+            if (año == 0) {
+                System.out.println("Operación Cancelada\n");
+                return true;
+            }
             if (año >= 2021 && año.toString().length() == 4) {
                 correct = true;
             }
