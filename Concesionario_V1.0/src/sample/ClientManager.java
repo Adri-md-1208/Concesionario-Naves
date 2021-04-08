@@ -14,12 +14,17 @@ public class ClientManager {
     public boolean management() throws IOException, ClassNotFoundException {
         Admin admin = new Admin();
 
-        //Creador de clientes:
-
-        /*FilesCreator filesCreator = new FilesCreator();
-        filesCreator.ClientCreator();
-        filesCreator.ShipCreator();*/
-
+        //Creador de ficheros:
+        File clientsFile = new File("Client.dat");
+        File shipsFile = new File("Ships.dat");
+        if (!clientsFile.exists()){
+            FilesCreator filesCreator = new FilesCreator();
+            filesCreator.ClientCreator();
+        }
+        if (!shipsFile.exists()){
+            FilesCreator filesCreator = new FilesCreator();
+            filesCreator.ShipCreator();
+        }
 
         Login login = new Login();
         client = login.login();

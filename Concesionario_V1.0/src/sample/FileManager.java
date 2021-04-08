@@ -126,16 +126,18 @@ public class FileManager {
     }
 
     public void readOffers() throws IOException, ClassNotFoundException {
-        if (clientFile.exists()) {
-            ObjectInputStream reader = new ObjectInputStream(new FileInputStream(offerFile));
-            try {
-                offerList.clear();
-                while (true) {
-                    Offer offer = (Offer) reader.readObject();
-                    offerList.add(offer);
-                }
-            } catch (EOFException e) {
+        if (offerFile.exists()) {
+            if (offerFile.length() != 0) {
+                ObjectInputStream reader = new ObjectInputStream(new FileInputStream(offerFile));
+                try {
+                    offerList.clear();
+                    while (true) {
+                        Offer offer = (Offer) reader.readObject();
+                        offerList.add(offer);
+                    }
+                } catch (EOFException e) {
 
+                }
             }
         }
     }
@@ -159,9 +161,21 @@ public class FileManager {
     public void deleteOffer(Offer offerToRemove) throws IOException, ClassNotFoundException {
         offerList.clear();
         readOffers();
-        offerList.remove(offerToRemove);
+        Offer offerToDelete = null;
+        for (Offer offerToSearch : offerList) {
+            if (offerToRemove.getDescription().equals(offerToSearch.getDescription())) {
+                offerToDelete = offerToSearch;
+
+            }
+        }
+        offerList.remove(offerToDelete);
         //offerFile.delete();
         Boolean firstTime = true;
+        if(offerList.isEmpty()){
+            BufferedWriter bw = new BufferedWriter(new FileWriter(offerFile));
+            bw.write("");
+            bw.close();
+        }
         for(Offer offerToAdd : offerList){
             if (firstTime) {
                 ObjectOutputStream writer = new ObjectOutputStream(new FileOutputStream(offerFile));

@@ -147,18 +147,18 @@ public class BuyOffer {
                 admin.changePropietario(nave, purchaser);
             }
             transaction.setOffer(oferta);
-            Offer offerToDelete = null;
-            for (Offer offerToSearch : admin.offerList) {
-                if (oferta.getDescription().equals(offerToSearch)) {
+            /*Offer offerToDelete = null;
+            for (Offer offerToSearch : admin.getPublishedOffers()) {
+                if (oferta.getDescription().equals(offerToSearch.getDescription())) {
                     offerToDelete = offerToSearch;
 
                 }
-            }
+            }*/
             Date date = new Date(Calendar.YEAR + 120, Calendar.MONTH, Calendar.DAY_OF_MONTH);
             transaction.setTime(date);
             System.out.println("Se ha creado una transacción: Venta de la oferta '" + oferta.getDescription() + "' de " + seller.getNick() + " a "
                     + purchaser.getNick() + " el día " + date.getDay() + " del mes " + date.getMonth() + ".\n");
-            admin.deleteOffer(offerToDelete);
+            admin.deleteOffer(oferta);
             return transaction;
         } else {
             System.out.println("Se ha cancelado la transacción\n");

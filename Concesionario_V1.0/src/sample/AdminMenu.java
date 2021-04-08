@@ -42,7 +42,7 @@ public class AdminMenu {
             String decision = input.next();
             switch (decision) {
                 case "S":
-                    admin.modifyOfferVisibility(unpublishedOfferList.get(option - 1));
+                    admin.modifyOfferVisibility(unpublishedOfferList.get(option - 1),true);
                     break;
                 case "N":
                     admin.deleteOffer(unpublishedOfferList.get(option - 1));

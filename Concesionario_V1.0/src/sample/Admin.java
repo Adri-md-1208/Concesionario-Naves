@@ -75,8 +75,8 @@ public class Admin {
         fileManager.deleteOffer(offer);
     }
 
-    public void modifyOfferVisibility(Offer offer) throws IOException, ClassNotFoundException {
-        fileManager.modifyOfferVisibility(offer,true);
+    public void modifyOfferVisibility(Offer offer,Boolean status) throws IOException, ClassNotFoundException {
+        fileManager.modifyOfferVisibility(offer,status);
     }
 
     public void addFraudSanction(Client client) throws IOException, ClassNotFoundException {
