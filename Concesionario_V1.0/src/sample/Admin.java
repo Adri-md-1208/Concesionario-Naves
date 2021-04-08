@@ -1,8 +1,7 @@
 package sample;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Admin {
     File clientFile = new File("Clients.dat");
@@ -156,5 +155,6 @@ public class Admin {
         }*/
         fileManager.changePropietario(nave,newPropietario);
     }
-}
 
+
+}

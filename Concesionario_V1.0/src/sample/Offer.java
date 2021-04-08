@@ -11,6 +11,7 @@ public class Offer implements Serializable {
     private boolean isPublished;
     private boolean isBought;
     private List<String> naves;
+    private List<Client> suscriptores;
 
     public Offer(String description, double prize, Date dateLimit, boolean isPublished, boolean isBought, List<String> naves) {
         this.description = description;
@@ -61,7 +62,9 @@ public class Offer implements Serializable {
         isPublished = published;
     }
 
-    public void setBought(boolean bought) {
-        isBought = bought;
-    };
+    public void setBought(boolean bought) { isBought = bought; }
+
+    public List<Client> getSuscriptores() { return suscriptores; }
+
+    public void addSuscriptor(Client client) { suscriptores.add(client); }
 }

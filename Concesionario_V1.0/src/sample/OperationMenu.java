@@ -33,12 +33,12 @@ public class OperationMenu {
                             createOffer.crearOferta(client);
                             break;
                         case 3:
-                            SubscribeToOffer subscribeToOffer = new SubscribeToOffer();
-                            subscribeToOffer.subscribe();
+                            SubscribeToShip subscribeToShip = new SubscribeToShip();
+                            subscribeToShip.subscribe(client);
                             break;
                         case 4:
-                            UnsubscribeToOffer unsubscribeToOffer = new UnsubscribeToOffer();
-                            //unsubscribeToOffer.d();
+                            UnsubscribeToShip unsubscribeToOffer = new UnsubscribeToShip();
+                            unsubscribeToOffer.unsubscribe(client);
                             break;
                         case 5:
                             LastTransactions lastTransaction = new LastTransactions();
