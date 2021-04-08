@@ -10,7 +10,6 @@ public class LastTransactions {
         Admin admin = new Admin();
         List<Transaction> transactionList = admin.getIndividualTransaction(client);
         System.out.println("Estas son tus últimas transacciones: ");
-        int i=0;
         List<Client> clientList = admin.getClientList();
         Client purchaser= null;
         Client seller= null;
@@ -29,8 +28,8 @@ public class LastTransactions {
             System.out.println(contador + ". " + purchaser.getNick() + " ha comprado a " + seller.getNick()
             + " la oferta de " + transaction.getOffer().getDescription() + " por " + transaction.getOffer().getPrize() + " euros en el día " +
             transaction.getTime().getDay() + " del mes " + transaction.getTime().getMonth());
-            i++;
-            if (i>9) {
+            contador++;
+            if (contador>=10) {
                 break;
             }
         }

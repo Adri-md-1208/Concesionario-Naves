@@ -103,7 +103,7 @@ public class BuyOffer {
             //Ya se tiene la oferta deseada, por lo que se creará la transacción con el método comprarOferta().
             Transaction transaction = comprarOferta(chosenOffer, client);
             //Se añade la transacción al registro.
-            if (transaction==null) {
+            if (transaction == null) {
                 return false;
             }
             admin.addTransaction(transaction);
@@ -129,40 +129,39 @@ public class BuyOffer {
         return ofertasVálidas.get(numOffer - 1);
     }
 
+
     private Transaction comprarOferta(Offer oferta, Client purchaser) throws IOException, ClassNotFoundException {
-        Transaction transaction = new Transaction();
-        transaction.setPurchaser(purchaser.getEmail());
-        List<String> navesEnOferta = oferta.getNaves();
-        Admin admin = new Admin();
-        Nave navePropietario = admin.searchShip(navesEnOferta.get(0));
-        Client seller = navePropietario.getPropietario();
-        transaction.setSeller(seller.getEmail());
-        for (String numReg : navesEnOferta) {
-            Nave nave = admin.searchShip(numReg);   //La nave pasa a ser del cliente comprador.
-            nave.setPropietario(purchaser);
-            admin.changePropietario(nave,purchaser);
-            //updateSoldOffer(oferta); No es necesario porque se borra con el siguiente método
-        }
-        transaction.setOffer(oferta);
-        Offer offerToDelete=null;
-        for (Offer offerToSearch : admin.offerList){
-            if(oferta.getDescription().equals(offerToSearch)){
-                offerToDelete=offerToSearch;
-
-            }
-
-        }
-        admin.deleteOffer(offerToDelete);
-        Date date = new Date(Calendar.YEAR + 120, Calendar.MONTH, Calendar.DAY_OF_MONTH);
-        transaction.setTime(date);
         System.out.println("¿Está seguro de que quiere comprar la oferta '" + oferta.getDescription() + "' por un precio de " + oferta.getPrize() + " euros? -- Pulse S en caso afirmativo y N en caso negativo");
         Scanner sc = new Scanner(System.in);
         if (sc.next().equals("S")) {
+            Transaction transaction = new Transaction();
+            transaction.setPurchaser(purchaser.getEmail());
+            List<String> navesEnOferta = oferta.getNaves();
+            Admin admin = new Admin();
+            Nave navePropietario = admin.searchShip(navesEnOferta.get(0));
+            Client seller = navePropietario.getPropietario();
+            transaction.setSeller(seller.getEmail());
+            for (String numReg : navesEnOferta) {
+                Nave nave = admin.searchShip(numReg);   //La nave pasa a ser del cliente comprador.
+                nave.setPropietario(purchaser);
+                admin.changePropietario(nave, purchaser);
+            }
+            transaction.setOffer(oferta);
+            Offer offerToDelete = null;
+            for (Offer offerToSearch : admin.offerList) {
+                if (oferta.getDescription().equals(offerToSearch)) {
+                    offerToDelete = offerToSearch;
+
+                }
+            }
+            Date date = new Date(Calendar.YEAR + 120, Calendar.MONTH, Calendar.DAY_OF_MONTH);
+            transaction.setTime(date);
             System.out.println("Se ha creado una transacción: Venta de la oferta '" + oferta.getDescription() + "' de " + seller.getNick() + " a "
                     + purchaser.getNick() + " el día " + date.getDay() + " del mes " + date.getMonth() + ".\n");
+            admin.deleteOffer(offerToDelete);
             return transaction;
         } else {
-            System.out.println("Se ha cancelado la transacción");
+            System.out.println("Se ha cancelado la transacción\n");
             return null;
         }
     }

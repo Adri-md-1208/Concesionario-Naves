@@ -31,11 +31,13 @@ public class AdminMenu {
             for(String numReferencia :numsReferenciaList ){
                 navesInOffer.add(admin.searchShip(numReferencia));
             }
+            int contador = 1;
             for (Nave nave : navesInOffer){
-                System.out.println("Tipo: " + nave.getClass().getSimpleName());
-                System.out.println("Propietario: "+ nave.getPropietario().getName());
-                System.out.println("Precio: " + unpublishedOfferList.get(option-1).getPrize() + "€");
+                System.out.println("Tipo " + contador + ": " + nave.getClass().getSimpleName());
+                contador++;
             }
+            System.out.println("Propietario: "+ navesInOffer.get(0).getPropietario().getName());
+            System.out.println("Precio: " + unpublishedOfferList.get(option-1).getPrize() + "€");
             System.out.println("Pulse 'S' para publicarla, 'N' para borrarla o 'C' para cancelar la operación");
             String decision = input.next();
             switch (decision) {
