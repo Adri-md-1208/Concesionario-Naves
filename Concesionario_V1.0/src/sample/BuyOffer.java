@@ -32,7 +32,7 @@ public class BuyOffer {
                                         ", Propietario: " + nave.getPropietario().getNick() + ", Tripulantes: " + nave.getNumTripulantes());
                                 ofertaVálida = true;
                             } else {
-                                System.out.println("Nave no válida para su usuario -- Oferta cancelada");
+                                System.out.println("Nave no válida para su usuario -- Oferta Cancelada\n");
 
                             }
                         }
@@ -62,7 +62,7 @@ public class BuyOffer {
                                         ", Propietario: " + nave.getPropietario().getNick() + ", Tripulantes: " + nave.getNumTripulantes());
                                 ofertaVálida = true;
                             } else {
-                                System.out.println("Nave no válida para su usuario -- Oferta cancelada");
+                                System.out.println("Nave no válida para su usuario -- Oferta Cancelada\n");
 
                             }
                         }
@@ -100,6 +100,9 @@ public class BuyOffer {
         if (ofertasVálidas.size() != 0) {
             //Una vez mostradas, se llama a un método para seleccionar la oferta que se desee comprar.
             Offer chosenOffer = seleccionarOferta();
+            if (chosenOffer==null) {
+                return true;
+            }
             //Ya se tiene la oferta deseada, por lo que se creará la transacción con el método comprarOferta().
             Transaction transaction = comprarOferta(chosenOffer, client);
             //Se añade la transacción al registro.
@@ -119,11 +122,15 @@ public class BuyOffer {
 
 
     private Offer seleccionarOferta() {
-        System.out.println("\nIntroduzca el número de la oferta que desea comprar");
+        System.out.println("\nIntroduzca el número de la oferta que desea comprar o '0' para cancelar");
         Scanner sc = new Scanner(System.in);
         int numOffer = sc.nextInt();
-        while (numOffer < 1 || numOffer > (ofertasVálidas.size())) {
+        while (numOffer < 0 || numOffer > (ofertasVálidas.size())) {
             numOffer = sc.nextInt();
+        }
+        if (numOffer==0) {
+            System.out.println("Operación Cancelada\n");
+            return null;
         }
         System.out.println("Has seleccionado la oferta " + numOffer + " por un precio de " + ofertasVálidas.get(numOffer - 1).getPrize() + " euros\n");
         return ofertasVálidas.get(numOffer - 1);
