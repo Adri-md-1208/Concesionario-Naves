@@ -50,9 +50,6 @@ public class FilesCreator {
         Client client4 = new Client("Adrian", "Saturn",
                 "Human", 0023, "MoralesDato", "3366",
                 "AMD@gmail.com", false, 0, false, false, null);
-        Client client5 = new Client("Kromi", "Geonosis",
-                "Kromagg", 7823, "Xx_Kromi_xX", "kromi",
-                "kromi@gmail.com", false, 0, false, false, null);
 
         //Propulsiones
         Propulsion propulsion1 = new Propulsion(Propulsion.TipoPropulsor.Compresor_de_traza, 2000);
@@ -84,13 +81,9 @@ public class FilesCreator {
         //Array de defensas
         Defensa[] defensas1 = new Defensa[1];
         Defensa[] defensas2 = new Defensa[1];
-        Defensa[] defensas3 = new Defensa[3];
+        Defensa[] defensas3 = new Defensa[2];
         defensas1[0]=defensa1;
         defensas2[0]=defensa4;
-        defensas3[0]=defensa1;
-        defensas3[1]=defensa3;
-        defensas3[2]=defensa2;
-
 
         //Armas
         Arma arma1 = new Arma(Arma.TipoArma.Cañón_Blaster, 2500);
@@ -113,31 +106,26 @@ public class FilesCreator {
         Creator cazCreator = new CazaCreator();
 
         List<Nave> navesList = new ArrayList<>();
-        Nave nave1 = destCreator.crearNave("A89742QOP", client1, motor1, 1000, null, 0, defensas1, armas1, 0, null);
+        Nave nave1 = destCreator.crearNave("A89742QOP", client1, motor1, 1000, null, 5000, defensas1, armas1, 0, null);
         Nave nave2 = cargCreator.crearNave("C5689POO", client2, motor2, 560, null, 8900, null , null , 0, null);
-        Nave nave3 = cazCreator.crearNave("X9089BNV", client2, motor3, 1, null, 0, defensas2, armas2, 0, null);
-        Nave nave4 = cazCreator.crearNave("A8900HJK", client3, motor3, 1, null, 0, defensas2, armas2, 0, null);
-        Nave nave5 = cazCreator.crearNave("Z0011QWE", client2, motor3, 1, null, 0, defensas2, armas2, 0, null);
-        Nave nave6 = cargCreator.crearNave("Q2009PPO", client4, motor4, 5600, null, 8590, defensas1, null, 0, null);
-        Nave nave7 = cazCreator.crearNave("M1234567", client5, motor4, 2, null, 0, defensas2, armas2, 0, null);
-        navesList.add(nave3);
-        navesList.add(nave7);
-        Nave nave8 = estCreator.crearNave("E7777777", client5, motor3, 12000, null,0, defensas3, null, 15000,  navesList);
+        Nave nave3 = cazCreator.crearNave("X9089BNV", client2, motor3, 1, null, 50, defensas2, armas2, 0, null);
+        Nave nave4 = cazCreator.crearNave("A8900HJK", client3, motor3, 1, null, 50, defensas2, armas2, 0, null);
+        Nave nave5 = cazCreator.crearNave("Z0011QWE", client2, motor3, 1, null, 50, defensas2, armas2, 0, null);
+        navesList.add(nave4);
+        navesList.add(nave5);
+        Nave nave6 = cargCreator.crearNave("Q2009PPO", client4, motor4, 5600, null, 8590, defensas1, null, 0, navesList);
 
         List<Nave> navesToAdd = new ArrayList<>();
         Nave[] client1Naves = new Nave[1];
         Nave[] client2Naves = new Nave[3];
         Nave[] client3Naves = new Nave[1];
         Nave[] client4Naves = new Nave[1];
-        Nave[] client5Naves = new Nave[2];
         client1Naves[0]=nave1;
         client2Naves[0]=nave2;
         client2Naves[1]=nave3;
         client2Naves[2]=nave5;
         client3Naves[0]=nave4;
         client4Naves[0]=nave6;
-        client5Naves[0]=nave7;
-        //client5Naves[1]=nave8;
 
         navesToAdd.add(nave1);
         navesToAdd.add(nave2);
@@ -145,12 +133,14 @@ public class FilesCreator {
         navesToAdd.add(nave4);
         navesToAdd.add(nave5);
         navesToAdd.add(nave6);
-        navesToAdd.add(nave7);
-        //navesToAdd.add(nave8);
 
         for (Nave nave : navesToAdd){
             admin.addShip(nave);
         }
+
+
+
+
 
     }
 }
