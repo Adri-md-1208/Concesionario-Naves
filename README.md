@@ -68,8 +68,8 @@ programa. Así como un menú para poder revisar una oferta y decidir si publicar
 
 ## Equipo de desarrollo
 
-* Alejandro López Adrados: [@BiggestGuille](https://github.com/BiggestGuille)
-* Guillermo Grande Santi: [@AlejandroAdrados](https://github.com/AlejandroAdrados)
+* Alejandro López Adrados: [@AlejandroAdrados](https://github.com/AlejandroAdrados)
+* Guillermo Grande Santi: [@BiggestGuille](https://github.com/BiggestGuille)
 * Nicolás Rubira Cabello: [@nicorubira](https://github.com/nicorubira)
 * Adrián Morales Dato: [@Adri-md-1208](https://github.com/Adri-md-1208)
 
