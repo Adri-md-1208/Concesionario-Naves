@@ -90,6 +90,12 @@ public class Admin {
     public void deletePiracySanction(Client client) throws IOException, ClassNotFoundException {
         fileManager.modifyPiracyClient(client,false);
     }
+    public void addWarningSanction(Client client) throws IOException, ClassNotFoundException {
+        fileManager.modifyWarningClient(client,false);
+    }
+    public void deleteWarningSanction(Client client) throws IOException, ClassNotFoundException {
+        fileManager.modifyWarningClient(client,true);
+    }
 
     public void addTransaction(Transaction transaction) throws IOException {
         fileManager.writeTransaction(transaction);

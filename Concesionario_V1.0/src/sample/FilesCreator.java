@@ -13,7 +13,7 @@ public class FilesCreator {
 
     public void ClientCreator() throws IOException {
         Client client1 = new Client("Alejandro", "Tatooine",
-                "Human", 7777, "AlexLopezAdrados", "programar",
+                "Human", 7777, "AlexLopezAdrados", "alejandro",
                 "ala@gmail.com", true, 0, false, false, null,comentarios); //Tipo 3
         Client client2 = new Client("Guille", "Mars",
                 "Kromagg", 8510, "Guija777", "Hola",

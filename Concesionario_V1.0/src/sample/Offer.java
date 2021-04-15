@@ -66,4 +66,8 @@ public class Offer implements Serializable {
 
     public void setBought(boolean bought) { isBought = bought; }
 
+    public Date getFechaPublicacion() {
+        return fechaPublicacion;
+    }
+
 }

@@ -33,7 +33,7 @@ public class ClientManager {
                 AdminMenu adminMenu = new AdminMenu();
                 Boolean repeat = true;
                 while (repeat){
-                    repeat = adminMenu.run();
+                    repeat = adminMenu.printMenu();
                 };
             }
 
@@ -44,7 +44,8 @@ public class ClientManager {
                     System.out.println("Está usted bloqueado en nuestro sistema\n");
                     return false;
                 }
-
+                SuscriptionManager suscription= new SuscriptionManager();
+                suscription.showOffers(client);
                 admin.actualizarUltimoAcceso(client);
                 operationMenu.printMenu(TipoUsuario, client);
             }

@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class AdminMenu {
 
-    public boolean run() throws IOException, ClassNotFoundException {
+    public boolean reviewOffers() throws IOException, ClassNotFoundException {
         try {
             Admin admin = new Admin();
             List<Offer> unpublishedOfferList = admin.getUnpublishedOffers();
@@ -46,6 +46,11 @@ public class AdminMenu {
                     break;
                 case "N":
                     admin.deleteOffer(unpublishedOfferList.get(option - 1));
+                    Client client = admin.searchShip(unpublishedOfferList.get(option-1).getNaves().get(0)).getPropietario();
+                    admin.addWarningSanction(client);
+                    if(client.getWarnings()==2){
+                        //En el momento que un usuario llega a 2 warnings se guarda esta fecha con hora y cuando pasen 5 días se llama a admin.deleteWarningSanction();
+                    }
                     break;
                 case "C":
                     return false;
@@ -64,4 +69,50 @@ public class AdminMenu {
             return false;
         }
     }
+
+    public Client showClients() throws IOException, ClassNotFoundException {
+        Scanner sc = new Scanner(System.in);
+        Admin admin = new Admin();
+        int cont = 1;
+        List<Client> clients = null;
+        clients = admin.getClientList();
+        for (Client client : clients) {
+            System.out.println(cont++ + ". " + client.getNick());
+        }
+        int n = sc.nextInt();
+        return admin.getClientList().get(n-1);
+    }
+
+    public boolean printMenu() throws IOException, ClassNotFoundException {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("1.Revisar ofertas");
+        System.out.println("2.Añadir sanción de piratería");
+        System.out.println("3.Eliminar sanción de piratería");
+        System.out.println("4.Añadir sanción de fraude");
+        System.out.println("5.Eliminar sanción de fraude");
+        System.out.println("6. Salir");
+        int n = sc.nextInt();
+        Admin admin = new Admin();
+        switch(n){
+            case 1:
+                reviewOffers();
+                break;
+            case 2:
+                admin.addPiracySanction(showClients());
+                break;
+            case 3:
+                admin.deletePiracySanction(showClients());
+                break;
+            case 4:
+                admin.addFraudSanction(showClients());
+                break;
+            case 5:
+                admin.deleteFraudSanction(showClients());
+                break;
+            case 6 :
+                return false;
+        }
+        return true;
+    }
+
 }

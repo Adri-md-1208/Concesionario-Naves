@@ -17,12 +17,13 @@ public class OperationMenu {
             System.out.println("4.Desuscribirse");
             System.out.println("5.Últimas transacciones");
             System.out.println("6.Mis valoraciones");
-            System.out.println("7.Salir");
+            System.out.println("7.Mi cuenta");
+            System.out.println("8.Salir");
 
             validOption = false;
             while (validOption == false) {
                 int option = selectOption();
-                if (option >= 1 && option <= 7) {
+                if (option >= 1 && option <= 8) {
                     validOption = true;
                     switch (option) {
                         case 1:
@@ -50,6 +51,10 @@ public class OperationMenu {
                             valoraciones.seeRatings(client);
                             break;
                         case 7:
+                            MyProfile profile = new MyProfile();
+                            profile.myAccount(client);
+                            break;
+                        case 8:
                             exit = true;
                             break;
                     }

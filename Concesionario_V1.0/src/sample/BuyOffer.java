@@ -10,6 +10,9 @@ public class BuyOffer {
 
     public boolean verOfertas(int TipoUsuario, Client client) throws IOException, ClassNotFoundException {
         boolean ofertaVálida = false;
+        boolean navesVálidas = false;
+        List<String> validNaves = new ArrayList<>();
+        boolean containsFilter = false;
         int contador = 1;
         boolean contadorEscrito = false;
         Admin admin = new Admin();
@@ -24,20 +27,27 @@ public class BuyOffer {
                     for (String numReg : numRegTotales) {
                         navesTotales.add(admin.searchShip(numReg));
                     }
-                    if (!navesTotales.get(0).getPropietario().getEmail().equals(client.getEmail())) {
-                        System.out.println("Oferta " + contador + ":");
-                        //El forEach solo coge ofertas distintas a null.
-                        for (Nave nave : navesTotales) {
-                            if (nave.getClass().getSimpleName().equals("Carguero")) {
-                                System.out.println("Tipo " + nave.getClass().getSimpleName() + ", Núm.Registro: " + nave.getNumeroRegistro() +
-                                        ", Propietario: " + nave.getPropietario().getNick() + ", Tripulantes: " + nave.getNumTripulantes());
-                                ofertaVálida = true;
-                            }
+                    for (Nave nave : navesTotales) {
+                        if (nave.getClass().getSimpleName().equals("Caza") && nave.getClass().getSimpleName().equals("Destructor") && nave.getClass().getSimpleName().equals("EstacionEspacial")) {
+                            navesVálidas = false;
                         }
-                        if (ofertaVálida) {
-                            ofertasVálidas.add(oferta);
-                            System.out.println("Precio: " + oferta.getPrize());
-                            contador++;
+                    }
+                    if (navesVálidas) {
+                        if (!navesTotales.get(0).getPropietario().getEmail().equals(client.getEmail())) {
+                            System.out.println("Oferta " + contador + ":");
+                            //El forEach solo coge ofertas distintas a null.
+                            for (Nave nave : navesTotales) {
+                                if (nave.getClass().getSimpleName().equals("Carguero")) {
+                                    System.out.println("Tipo " + nave.getClass().getSimpleName() + ", Núm.Registro: " + nave.getNumeroRegistro() +
+                                            ", Propietario: " + nave.getPropietario().getNick() + ", Tripulantes: " + nave.getNumTripulantes());
+                                    ofertaVálida = true;
+                                }
+                            }
+                            if (ofertaVálida) {
+                                ofertasVálidas.add(oferta);
+                                System.out.println("Precio: " + oferta.getPrize());
+                                contador++;
+                            }
                         }
                     }
                     navesTotales = new ArrayList<>();
@@ -51,35 +61,48 @@ public class BuyOffer {
                     for (String numReg : numRegTotales) {
                         navesTotales.add(admin.searchShip(numReg));
                     }
-                    if (!navesTotales.get(0).getPropietario().getEmail().equals(client.getEmail())) {
-                        //El forEach solo coge ofertas distintas a null.
-                        for (Nave nave : navesTotales) {
-                            if (filterList.contains("Carguero") && nave.getClass().getSimpleName().equals("Carguero")) {
-                                if (!contadorEscrito) {
-                                    System.out.println("Oferta " + contador + ":");
-                                    contadorEscrito = true;
-                                }
-                                System.out.println("Tipo " + nave.getClass().getSimpleName() + ", Núm.Registro: " + nave.getNumeroRegistro() +
-                                        ", Propietario: " + nave.getPropietario().getNick() + ", Tripulantes: " + nave.getNumTripulantes());
-                                ofertaVálida = true;
-                            }
-                            if (filterList.contains("Caza") && (nave.getClass().getSimpleName().equals("Caza"))) {
-                                if (!contadorEscrito) {
-                                    System.out.println("Oferta " + contador + ":");
-                                    contadorEscrito = true;
-                                }
-                                System.out.println("Tipo " + nave.getClass().getSimpleName() + ", Núm.Registro: " + nave.getNumeroRegistro() +
-                                        ", Propietario: " + nave.getPropietario().getNick() + ", Tripulantes: " + nave.getNumTripulantes());
-                                ofertaVálida = true;
-                            }
+                    for (Nave nave : navesTotales) {
+                        if (nave.getClass().getSimpleName().equals("Destructor") && nave.getClass().getSimpleName().equals("EstacionEspacial")) {
+                            navesVálidas = false;
                         }
-
-                        if (ofertaVálida) {
-                            ofertasVálidas.add(oferta);
-                            System.out.println("Precio: " + oferta.getPrize());
-                            contador++;
+                        if (filterList.contains(nave.getClass().getSimpleName())) {
+                            containsFilter = true;
                         }
                     }
+                    if (navesVálidas) {
+                        if (!navesTotales.get(0).getPropietario().getEmail().equals(client.getEmail())) {
+                            //El forEach solo coge ofertas distintas a null.
+                            for (Nave nave : navesTotales) {
+                                if ((filterList.contains("Carguero") && nave.getClass().getSimpleName().equals("Carguero")) || (containsFilter && nave.getClass().getSimpleName().equals("Carguero"))) {
+                                    if (!contadorEscrito) {
+                                        System.out.println("Oferta " + contador + ":");
+                                        contadorEscrito = true;
+                                    }
+                                    System.out.println("Tipo " + nave.getClass().getSimpleName() + ", Núm.Registro: " + nave.getNumeroRegistro() +
+                                            ", Propietario: " + nave.getPropietario().getNick() + ", Tripulantes: " + nave.getNumTripulantes());
+                                    ofertaVálida = true;
+                                    containsFilter = true;
+                                }
+                                if ((filterList.contains("Caza") && (nave.getClass().getSimpleName().equals("Caza"))) || (containsFilter && nave.getClass().getSimpleName().equals("Caza"))) {
+                                    if (!contadorEscrito) {
+                                        System.out.println("Oferta " + contador + ":");
+                                        contadorEscrito = true;
+                                    }
+                                    System.out.println("Tipo " + nave.getClass().getSimpleName() + ", Núm.Registro: " + nave.getNumeroRegistro() +
+                                            ", Propietario: " + nave.getPropietario().getNick() + ", Tripulantes: " + nave.getNumTripulantes());
+                                    ofertaVálida = true;
+                                    containsFilter = true;
+                                }
+                            }
+
+                            if (ofertaVálida) {
+                                ofertasVálidas.add(oferta);
+                                System.out.println("Precio: " + oferta.getPrize());
+                                contador++;
+                            }
+                        }
+                    }
+                    containsFilter = false;
                     contadorEscrito = false;
                     navesTotales = new ArrayList<>();
                 }
@@ -92,10 +115,15 @@ public class BuyOffer {
                     for (String numReg : numRegTotales) {
                         navesTotales.add(admin.searchShip(numReg));
                     }
+                    for (Nave nave : navesTotales) {
+                        if (filterList.contains(nave.getClass().getSimpleName())) {
+                            containsFilter = true;
+                        }
+                    }
                     if (!navesTotales.get(0).getPropietario().getEmail().equals(client.getEmail())) {
                         //El forEach solo coge ofertas distintas a null.
                         for (Nave nave : navesTotales) {
-                            if (filterList.contains("Carguero") && nave.getClass().getSimpleName().equals("Carguero")) {
+                            if ((filterList.contains("Carguero") && nave.getClass().getSimpleName().equals("Carguero")) || (containsFilter && nave.getClass().getSimpleName().equals("Carguero"))) {
                                 if (!contadorEscrito) {
                                     System.out.println("Oferta " + contador + ":");
                                     contadorEscrito = true;
@@ -103,8 +131,9 @@ public class BuyOffer {
                                 System.out.println("Tipo " + nave.getClass().getSimpleName() + ", Núm.Registro: " + nave.getNumeroRegistro() +
                                         ", Propietario: " + nave.getPropietario().getNick() + ", Tripulantes: " + nave.getNumTripulantes());
                                 ofertaVálida = true;
+                                containsFilter = true;
                             }
-                            if (filterList.contains("Caza") && (nave.getClass().getSimpleName().equals("Caza"))) {
+                            if ((filterList.contains("Caza") && nave.getClass().getSimpleName().equals("Caza")) || (containsFilter && nave.getClass().getSimpleName().equals("Caza"))) {
                                 if (!contadorEscrito) {
                                     System.out.println("Oferta " + contador + ":");
                                     contadorEscrito = true;
@@ -112,8 +141,9 @@ public class BuyOffer {
                                 System.out.println("Tipo " + nave.getClass().getSimpleName() + ", Núm.Registro: " + nave.getNumeroRegistro() +
                                         ", Propietario: " + nave.getPropietario().getNick() + ", Tripulantes: " + nave.getNumTripulantes());
                                 ofertaVálida = true;
+                                containsFilter = true;
                             }
-                            if (filterList.contains("Destructor") && nave.getClass().getSimpleName().equals("Destructor")) {
+                            if ((filterList.contains("Destructor") && nave.getClass().getSimpleName().equals("Destructor")) || (containsFilter && nave.getClass().getSimpleName().equals("Destructor"))) {
                                 if (!contadorEscrito) {
                                     System.out.println("Oferta " + contador + ":");
                                     contadorEscrito = true;
@@ -121,8 +151,9 @@ public class BuyOffer {
                                 System.out.println("Tipo " + nave.getClass().getSimpleName() + ", Núm.Registro: " + nave.getNumeroRegistro() +
                                         ", Propietario: " + nave.getPropietario().getNick() + ", Tripulantes: " + nave.getNumTripulantes());
                                 ofertaVálida = true;
+                                containsFilter = true;
                             }
-                            if (filterList.contains("EstacionEspacial") && (nave.getClass().getSimpleName().equals("EstacionEspacial"))) {
+                            if ((filterList.contains("EstacionEspacial") && nave.getClass().getSimpleName().equals("EstacionEspacial")) || (containsFilter && nave.getClass().getSimpleName().equals("EstacionEspacial"))) {
                                 if (!contadorEscrito) {
                                     System.out.println("Oferta " + contador + ":");
                                     contadorEscrito = true;
@@ -130,6 +161,7 @@ public class BuyOffer {
                                 System.out.println("Tipo " + nave.getClass().getSimpleName() + ", Núm.Registro: " + nave.getNumeroRegistro() +
                                         ", Propietario: " + nave.getPropietario().getNick() + ", Tripulantes: " + nave.getNumTripulantes());
                                 ofertaVálida = true;
+                                containsFilter = true;
                             }
                         }
                         if (ofertaVálida) {
@@ -138,6 +170,7 @@ public class BuyOffer {
                             contador++;
                         }
                     }
+                    containsFilter = false;
                     contadorEscrito = false;
                     navesTotales = new ArrayList<>();
                 }

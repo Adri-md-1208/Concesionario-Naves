@@ -68,46 +68,82 @@ public class FileManager {
         }
     }
 
-    public void modifyFraudClient(Client client, Boolean status) throws IOException, ClassNotFoundException {
+    public void modifyFraudClient(Client client, Boolean status) throws IOException, ClassNotFoundException{
+        clientList.clear();
         readClients();
-        int index=0;
-        while (client.getId()!=clientList.get(index).getId()){
-            index=+1;
-        }
-        clientList.get(index).setFraud(status);
-        clientFile.delete();
-        for (Client clientToAdd : clientList) {
-            writeClient(clientToAdd);
-        }
+        Client clientToModify= null;
+        for (Client clientToSearch : clientList) {
+            if (client.getEmail().equals(clientToSearch.getEmail())) {
+                clientToModify = clientToSearch;
 
+            }
+        }
+        clientList.get(clientList.indexOf(clientToModify)).setFraud(status);
+        //offerFile.delete();
+        Boolean firstTime = true;
+        for(Client clientToAdd : clientList){
+            if (firstTime) {
+                ObjectOutputStream writer = new ObjectOutputStream(new FileOutputStream(clientFile));
+                writer.writeObject(clientToAdd);
+                firstTime=false;
+            }
+            else {
+                writeClient(clientToAdd);
+            }
+        }
     }
 
-    public void modifyPiracyClient(Client client, Boolean status) throws IOException, ClassNotFoundException {
+    public void modifyPiracyClient(Client client, Boolean status) throws IOException, ClassNotFoundException{
+        clientList.clear();
         readClients();
-        int index=0;
-        while (client.getId()!=clientList.get(index).getId()){
-            index=+1;
-        }
-        clientList.get(index).setPiracy(status);
-        clientFile.delete();
-        for (Client clientToAdd : clientList) {
-            writeClient(clientToAdd);
-        }
+        Client clientToModify= null;
+        for (Client clientToSearch : clientList) {
+            if (client.getEmail().equals(clientToSearch.getEmail())) {
+                clientToModify = clientToSearch;
 
+            }
+        }
+        clientList.get(clientList.indexOf(clientToModify)).setPiracy(status);
+        //offerFile.delete();
+        Boolean firstTime = true;
+        for(Client clientToAdd : clientList){
+            if (firstTime) {
+                ObjectOutputStream writer = new ObjectOutputStream(new FileOutputStream(clientFile));
+                writer.writeObject(clientToAdd);
+                firstTime=false;
+            }
+            else {
+                writeClient(clientToAdd);
+            }
+        }
     }
 
-    public void modifyWarningsClient(Client client, int status) throws IOException, ClassNotFoundException {
+    public void modifyWarningClient(Client client,Boolean delete) throws IOException, ClassNotFoundException{
+        clientList.clear();
         readClients();
-        int index=0;
-        while (client.getId()!=clientList.get(index).getId()){
-            index=+1;
-        }
-        clientList.get(index).setWarnings(status);
-        clientFile.delete();
-        for (Client clientToAdd : clientList) {
-            writeClient(clientToAdd);
-        }
+        Client clientToModify= null;
+        for (Client clientToSearch : clientList) {
+            if (client.getEmail().equals(clientToSearch.getEmail())) {
+                clientToModify = clientToSearch;
 
+            }
+        }
+        if(delete) {
+            clientList.get(clientList.indexOf(clientToModify)).setWarnings(0);
+        } else{
+            clientList.get(clientList.indexOf(clientToModify)).setWarnings(clientList.get(clientList.indexOf(clientToModify)).getWarnings() + 1);
+        }
+        Boolean firstTime = true;
+        for(Client clientToAdd : clientList){
+            if (firstTime) {
+                ObjectOutputStream writer = new ObjectOutputStream(new FileOutputStream(clientFile));
+                writer.writeObject(clientToAdd);
+                firstTime=false;
+            }
+            else {
+                writeClient(clientToAdd);
+            }
+        }
     }
 
     public void addComment(Client cliente, String comment) throws IOException, ClassNotFoundException {
@@ -167,7 +203,7 @@ public class FileManager {
         readClients();
         Client clientToModify= null;
         for (Client clientToSearch : clientList) {
-            if (clientToModify.getEmail().equals(clientToSearch.getEmail())) {
+            if (client.getEmail().equals(clientToSearch.getEmail())) {
                 clientToModify = clientToSearch;
 
             }
@@ -192,7 +228,7 @@ public class FileManager {
         readClients();
         Client clientToModify= null;
         for (Client clientToSearch : clientList) {
-            if (clientToModify.getEmail().equals(clientToSearch.getEmail())) {
+            if (client.getEmail().equals(clientToSearch.getEmail())) {
                 clientToModify = clientToSearch;
             }
         }
@@ -216,7 +252,7 @@ public class FileManager {
         readClients();
         Client clientToModify= null;
         for (Client clientToSearch : clientList) {
-            if (clientToModify.getEmail().equals(clientToSearch.getEmail())) {
+            if (client.getEmail().equals(clientToSearch.getEmail())) {
                 clientToModify = clientToSearch;
 
             }
@@ -241,7 +277,7 @@ public class FileManager {
         readClients();
         Client clientToModify= null;
         for (Client clientToSearch : clientList) {
-            if (clientToModify.getEmail().equals(clientToSearch.getEmail())) {
+            if (client.getEmail().equals(clientToSearch.getEmail())) {
                 clientToModify = clientToSearch;
 
             }
