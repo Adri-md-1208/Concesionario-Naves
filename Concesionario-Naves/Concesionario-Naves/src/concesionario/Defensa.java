@@ -1,0 +1,3 @@
+package concesionario;
+
+interface Defensa {}
