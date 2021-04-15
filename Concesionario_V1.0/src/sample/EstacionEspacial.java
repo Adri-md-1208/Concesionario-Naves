@@ -2,6 +2,7 @@ package sample;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 class EstacionEspacial extends Nave implements Serializable {
     private int numMax;
@@ -9,7 +10,7 @@ class EstacionEspacial extends Nave implements Serializable {
     private Defensa[] defensa = new Defensa[3];
 
      public EstacionEspacial(String numeroRegistro, Client propietario, Propulsion[] motor, int numTripulantes,
-                             List<Client> suscriptores, Defensa[] defensa, int numMax, List<Nave> hangar){
+                             List<String> suscriptores, Defensa[] defensa, int numMax, List<Nave> hangar){
         this.setNumeroRegistro(numeroRegistro);
         this.setPropietario(propietario);
         this.setMotor(motor);

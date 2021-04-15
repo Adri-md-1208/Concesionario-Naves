@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+
 public class Offer implements Serializable {
     private String description;
     private double prize;
@@ -11,15 +12,16 @@ public class Offer implements Serializable {
     private boolean isPublished;
     private boolean isBought;
     private List<String> naves;
-    private List<Client> suscriptores;
+    private Date fechaPublicacion;
 
-    public Offer(String description, double prize, Date dateLimit, boolean isPublished, boolean isBought, List<String> naves) {
+    public Offer(String description, double prize, Date dateLimit, boolean isPublished, boolean isBought, List<String> naves, Date fechaPublicacion) {
         this.description = description;
         this.prize = prize;
         this.dateLimit = dateLimit;
         this.isPublished = isPublished;
         this.isBought = isBought;
         this.naves = naves;
+        this.fechaPublicacion = fechaPublicacion;
     }
 
     public List<String> getNaves() {
@@ -64,7 +66,4 @@ public class Offer implements Serializable {
 
     public void setBought(boolean bought) { isBought = bought; }
 
-    public List<Client> getSuscriptores() { return suscriptores; }
-
-    public void addSuscriptor(Client client) { suscriptores.add(client); }
 }

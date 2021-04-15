@@ -2,7 +2,9 @@ package sample;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 class Nave implements Serializable {
 
@@ -10,7 +12,7 @@ class Nave implements Serializable {
     private Client propietario;
     private Propulsion[] motor = new Propulsion[2];
     private int numTripulantes;
-    private List<Client> suscriptores = new ArrayList<>(); //considerar set
+    private List<String> suscriptores;
 
     public Nave(){}
 
@@ -30,7 +32,7 @@ class Nave implements Serializable {
         return numTripulantes;
     }
 
-    public List<Client> getSuscriptores() {
+    public List<String> getSuscriptores() {
         return suscriptores;
     }
 
@@ -50,7 +52,7 @@ class Nave implements Serializable {
         this.numTripulantes = numTripulantes;
     }
 
-    public void setSuscriptores(List<Client> suscriptores) {
+    public void setSuscriptores(List<String> suscriptores) {
         this.suscriptores = suscriptores;
     }
 

@@ -30,7 +30,9 @@ public class CreateOffer {
         }
         //Leer opcion elegida y guardarlo en Offer oferta.
         List<String> navesOferta = seleccionarNaves(navesVenta);
-
+        if (navesOferta==null) {
+            return true;
+        }
         //Pedir una descripción, un precio y una ¿¿¿fecha límite???
         System.out.println("Introduzca el precio de su oferta");
         Scanner sc = new Scanner(System.in);
@@ -80,9 +82,14 @@ public class CreateOffer {
         }
         int year = (año.intValue()) - 1900;
         Date fechaLímite = new Date(year, mes, dia);
+        Calendar calendario = new GregorianCalendar();
+
+        Date fechaPublicacion = new Date(calendario.get(Calendar.YEAR),calendario.get(Calendar.MONTH),calendario.get(Calendar.DAY_OF_MONTH),
+                calendario.get(Calendar.HOUR_OF_DAY),calendario.get(Calendar.MINUTE),calendario.get(Calendar.SECOND));
+
 
         //Para terminar, se crea la oferta al completo y se añade a la lista de ofertas sin publicar para que el admin la revise.
-        Offer finalOffer = new Offer(descripcion, precio, fechaLímite, false, false, navesOferta);
+        Offer finalOffer = new Offer(descripcion, precio, fechaLímite, false, false, navesOferta,fechaPublicacion);
         admin.addOffer(finalOffer);
         System.out.println("Se ha enviado la oferta al admin para que se revise, en breves será publicada\nVolviendo al menú principal...\n");
         return true;
@@ -96,8 +103,11 @@ public class CreateOffer {
         int numNave=0;
         List<String> navesOferta = new ArrayList<>();
         while (!stop) {
-        System.out.println("\nIntroduzca el número de la nave que desea vender");
+        System.out.println("\nIntroduzca el número de la nave que desea vender -- 0 para cancelar");
         numNave = sc.nextInt();
+        if (numNave==0) {
+            return null;
+        }
         while (numNave < 1 || numNave > (navesVenta.size())) {
             numNave = sc.nextInt();
         }

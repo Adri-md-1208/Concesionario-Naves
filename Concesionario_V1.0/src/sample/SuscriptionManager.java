@@ -1,11 +1,13 @@
 package sample;
 
-import java.util.HashSet;
-import java.util.TreeMap;
+import java.io.IOException;
+import java.util.Date;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicLongFieldUpdater;
 
 public class SuscriptionManager {
 
-    static TreeMap<String, HashSet<Client>> suscripciones = new TreeMap<>();
+    /*static TreeMap<String, HashSet<Client>> suscripciones = new TreeMap<>();
 
     public static HashSet<Client> getSuscriptors(String tipoNave){
         if (suscripciones.isEmpty()){
@@ -32,5 +34,16 @@ public class SuscriptionManager {
 
     public static void removeSuscriptor(String tipoNave, Client suscriptor){
         suscripciones.get(tipoNave).remove(suscriptor);
+    }*/
+    public void showOffers(Client client)throws IOException, ClassNotFoundException{
+        Admin admin = new Admin();
+        List<Nave> shipList = admin.getShipList();
+        Date ultimoAcceso = client.getUltimoAcceso();
     }
+
+
+
+
+
+
 }

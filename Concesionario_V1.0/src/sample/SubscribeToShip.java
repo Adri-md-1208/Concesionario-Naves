@@ -14,7 +14,9 @@ public class SubscribeToShip {
         }
         Scanner sc = new Scanner(System.in);
         String tipo = tipos[Integer.parseInt(sc.nextLine()) - 1];
-        SuscriptionManager.addSuscriptor(tipo, client);
+        Admin admin = new Admin();
+        admin.setSuscriptor(tipo,client,true);
+        //SuscriptionManager.addSuscriptor(tipo, client);
         System.out.println("Se ha suscrito con éxito a las naves de tipo " + tipo);
     }
 }

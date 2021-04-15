@@ -156,5 +156,36 @@ public class Admin {
         fileManager.changePropietario(nave,newPropietario);
     }
 
+    public void addSuscriptor(String tipo, Client newSuscriptor) throws IOException, ClassNotFoundException {
+        fileManager.addSuscriptor(tipo,newSuscriptor);
+    }
 
+    public void addComment(Client client, String comment) throws IOException, ClassNotFoundException {
+        fileManager.addComment(client,comment);
+    }
+
+    public void actualizarUltimoAcceso(Client cliente) throws IOException, ClassNotFoundException{
+        Calendar calendario = new GregorianCalendar();
+        Date fechaActual = new Date(calendario.get(Calendar.YEAR),calendario.get(Calendar.MONTH),calendario.get(Calendar.DAY_OF_MONTH),
+                calendario.get(Calendar.HOUR_OF_DAY),calendario.get(Calendar.MINUTE),calendario.get(Calendar.SECOND));
+        fileManager.modifyDateClient(cliente,fechaActual);
+    }
+
+    public void setSuscriptor(String tipo, Client cliente, Boolean estado)throws IOException, ClassNotFoundException{
+        switch (tipo){
+            case "Estacion Espacial":
+                fileManager.modifySuscEE(cliente,estado);
+                break;
+            case "Destructor":
+                fileManager.modifySuscDest(cliente, estado);
+                break;
+            case "Caza":
+                fileManager.modifySuscCaza(cliente, estado);
+                break;
+            case "Carguero":
+                fileManager.modifySuscCarg(cliente, estado);
+                break;
+        }
+    }
 }
+

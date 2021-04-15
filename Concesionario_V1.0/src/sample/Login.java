@@ -49,7 +49,7 @@ public class Login {
             catch(Exception noClient){
                 if(mail.equals("Admin")&&password.equals("Admin")){
                     System.out.println("Sesión de administrador inciada");
-                    Client Admin = new Client("null","null","null",0,"null","null","",false,0,false,false,null);
+                    Client Admin = new Client("null","null","null",0,"null","null","",false,0,false,false,null, null);
                     return Admin;
                 }
                 }

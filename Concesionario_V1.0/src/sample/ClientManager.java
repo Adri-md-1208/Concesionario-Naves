@@ -4,8 +4,6 @@ import javax.security.auth.login.LoginContext;
 import java.io.File;
 import java.io.IOException;
 import java.io.PipedReader;
-import java.util.List;
-import java.util.Map;
 
 public class ClientManager {
 
@@ -17,7 +15,7 @@ public class ClientManager {
         Admin admin = new Admin();
 
         //Creador de ficheros:
-        File clientsFile = new File("Client.dat");
+        File clientsFile = new File("Clients.dat");
         File shipsFile = new File("Ships.dat");
         if (!clientsFile.exists()){
             FilesCreator filesCreator = new FilesCreator();
@@ -46,6 +44,8 @@ public class ClientManager {
                     System.out.println("Está usted bloqueado en nuestro sistema\n");
                     return false;
                 }
+
+                admin.actualizarUltimoAcceso(client);
                 operationMenu.printMenu(TipoUsuario, client);
             }
             return true;

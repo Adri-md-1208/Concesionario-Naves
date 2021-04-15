@@ -16,12 +16,13 @@ public class OperationMenu {
             System.out.println("3.Suscribirse");
             System.out.println("4.Desuscribirse");
             System.out.println("5.Últimas transacciones");
-            System.out.println("6.Salir");
+            System.out.println("6.Mis valoraciones");
+            System.out.println("7.Salir");
 
             validOption = false;
             while (validOption == false) {
                 int option = selectOption();
-                if (option >= 1 && option <= 6) {
+                if (option >= 1 && option <= 7) {
                     validOption = true;
                     switch (option) {
                         case 1:
@@ -45,6 +46,10 @@ public class OperationMenu {
                             lastTransaction.lastTransaction(client);
                             break;
                         case 6:
+                            MyRatings valoraciones = new MyRatings();
+                            valoraciones.seeRatings(client);
+                            break;
+                        case 7:
                             exit = true;
                             break;
                     }

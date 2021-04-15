@@ -2,13 +2,14 @@ package sample;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 class Carguero extends Nave implements Serializable {
     private double carga;
     private Defensa[] defensa;
 
     public Carguero(String numeroRegistro, Client propietario, Propulsion[] motor, int numTripulantes,
-                    List<Client> suscriptores, double carga, Defensa[] defensa){
+                    List<String> suscriptores, double carga, Defensa[] defensa){
         this.setNumeroRegistro(numeroRegistro);
         this.setPropietario(propietario);
         this.setMotor(motor);
