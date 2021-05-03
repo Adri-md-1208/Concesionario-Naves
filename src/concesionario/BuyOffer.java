@@ -245,7 +245,7 @@ public class BuyOffer {
         System.out.println("¿Está seguro de que quiere comprar la oferta '" + oferta.getDescription() + "' por un precio de " + oferta.getPrize() + " euros? -- Pulse S en caso afirmativo y N en caso negativo");
         Scanner sc = new Scanner(System.in);
         if (sc.next().equals("S")) {
-            Transaction transaction = new Transaction();
+            Transaction transaction = new Transaction(null,null,null,null);
             transaction.setPurchaser(purchaser.getEmail());
             List<String> navesEnOferta = oferta.getNaves();
             Admin admin = new Admin();

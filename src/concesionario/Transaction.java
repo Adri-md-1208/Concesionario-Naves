@@ -9,6 +9,13 @@ public class Transaction implements Serializable {
     private Offer offer;
     private Date time;
 
+    public Transaction(String purchaser, String seller, Offer offer, Date time) {
+        this.purchaser = purchaser;
+        this.seller = seller;
+        this.offer = offer;
+        this.time = time;
+    }
+
     public Offer getOffer() {
         return offer;
     }

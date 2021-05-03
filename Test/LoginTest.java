@@ -83,8 +83,8 @@ public class LoginTest {
         catch(Exception noNick){
             System.out.println("Introduzca su contraseña de admin");
         }
-        assertThrows(nullPoin.class,()->{
+        /*assertThrows(nullPoin.class,()->{
             System.out.println("ok");
-        });
+        });*/
     }
 }
