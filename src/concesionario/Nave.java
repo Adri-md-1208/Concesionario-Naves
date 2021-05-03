@@ -3,7 +3,7 @@ package concesionario;
 import java.io.Serializable;
 import java.util.List;
 
-class Nave implements Serializable {
+public class Nave implements Serializable {
 
     private String numeroRegistro;
     private Client propietario;

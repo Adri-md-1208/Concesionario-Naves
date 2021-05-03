@@ -1,7 +1,7 @@
 import concesionario.Admin;
 import concesionario.TestOperation;
 import concesionario.Transaction;
-import org.junit.BeforeClass;
+//import org.junit.BeforeClass;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;

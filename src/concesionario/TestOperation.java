@@ -100,5 +100,56 @@ public class TestOperation {
         admin.addComment(admin.getClientList().get(4), valoracion3);
     }
 
+    public Nave crearNave1Test(){
+        List<String> comentarios = new ArrayList<>();
+        Client client1 = new Client("TestName", "TestPlanet",
+                "TestSpecie", 0001, "TestNick", "testPassword",
+                "TestEmail", true, 0, false, false, null,comentarios);
+        Propulsion propulsion1 = new Propulsion(Propulsion.TipoPropulsor.Compresor_de_traza, 2000);
+        Propulsion[] motor1=new Propulsion[2];
+        motor1[0]=propulsion1;
+        Defensa defensa1 = new Escudo(1000, 3000);
+        Defensa[] defensas1 = new Defensa[1];
+        defensas1[0]=defensa1;
+        Arma arma1 = new Arma(Arma.TipoArma.Cañón_Blaster, 2500);
+        Arma[] armas1 = new Arma[2];
+        armas1[0]= arma1;
+        Creator destCreator = new DestructorCreator();
+        Nave nave1 = destCreator.crearNave("numTest", client1, motor1, 1000, null, 0, defensas1, armas1, 0, null);
+        return nave1;
+    }
+
+    public Nave crearNave2Test(){
+        List<String> comentarios = new ArrayList<>();
+        Client client1 = new Client("TestName", "TestPlanet",
+                "TestSpecie", 0001, "TestNick", "testPassword",
+                "TestEmail", true, 0, false, false, null,comentarios);
+        Propulsion propulsion1 = new Propulsion(Propulsion.TipoPropulsor.Compresor_de_traza, 2000);
+        Propulsion[] motor1=new Propulsion[2];
+        motor1[0]=propulsion1;
+        Defensa defensa1 = new Escudo(1000, 3000);
+        Defensa[] defensas1 = new Defensa[1];
+        defensas1[0]=defensa1;
+        Arma arma1 = new Arma(Arma.TipoArma.Cañón_Blaster, 2500);
+        Arma[] armas1 = new Arma[2];
+        armas1[0]= arma1;
+        Creator destCreator = new DestructorCreator();
+        Nave nave1 = destCreator.crearNave("Test2", client1, motor1, 1000, null, 0, defensas1, armas1, 0, null);
+        return nave1;
+    }
+    public Client crearCliente1Test(){
+        List<String> comentarios = new ArrayList<>();
+        Client client1 = new Client("TestName1", "TestPlanet1",
+                "TestSpecie1", 0001, "TestNick1", "testPassword1",
+                "TestEmail1", true, 0, false, false, null,comentarios);
+        return client1;
+    }
+    public Client crearCliente2Test(){
+        List<String> comentarios = new ArrayList<>();
+        Client client1 = new Client("TestName2", "TestPlanet2",
+                "TestSpecie2", 0002, "TestNick2", "testPassword2",
+                "TestEmail2", false, 2, false, false, null,comentarios);
+        return client1;
+    }
 }
 
