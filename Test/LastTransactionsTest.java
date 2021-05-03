@@ -1,22 +1,85 @@
+import concesionario.Admin;
+import concesionario.TestOperation;
+import concesionario.Transaction;
+import org.junit.BeforeClass;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import java.io.IOException;
+import java.util.List;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class LastTransactionsTest {
 
-    @BeforeEach
-    void setUp() {
-
-    }
-
-    @AfterEach
-    void tearDown() {
-
+    @Test
+    void lastTransactionsClient1() throws IOException, ClassNotFoundException {
+        Admin admin = new Admin();
+        TestOperation testOperation = new TestOperation();
+        testOperation.creadorOfertas();
+        testOperation.comprarTresOfertas();
+        List<Transaction> listIndividualTransaction = admin.getIndividualTransaction(admin.getClientList().get(0));
+        //Según TestOperation, deberíamos tener 2 transacciones.
+        assertEquals(listIndividualTransaction.size(),2);
     }
 
     @Test
-    void name() {
+    void lastTransactionsClient2() throws IOException, ClassNotFoundException {
+        Admin admin = new Admin();
+        TestOperation testOperation = new TestOperation();
+        testOperation.creadorOfertas();
+        testOperation.comprarTresOfertas();
+        List<Transaction> listIndividualTransaction = admin.getIndividualTransaction(admin.getClientList().get(1));
+        //Según TestOperation, deberíamos tener 1 transacciones.
+        assertEquals(listIndividualTransaction.size(),1);
     }
 
+    @Test
+    void lastTransactionsClient3() throws IOException, ClassNotFoundException {
+        Admin admin = new Admin();
+        TestOperation testOperation = new TestOperation();
+        testOperation.creadorOfertas();
+        testOperation.comprarTresOfertas();
+        List<Transaction> listIndividualTransaction = admin.getIndividualTransaction(admin.getClientList().get(2));
+        //Según TestOperation, deberíamos tener 0 transacciones (usuario bloqueado).
+        assertEquals(listIndividualTransaction.size(),0);
+    }
 
+    @Test
+    void lastTransactionsClient4() throws IOException, ClassNotFoundException {
+        Admin admin = new Admin();
+        TestOperation testOperation = new TestOperation();
+        testOperation.creadorOfertas();
+        testOperation.comprarTresOfertas();
+        List<Transaction> listIndividualTransaction = admin.getIndividualTransaction(admin.getClientList().get(3));
+        //Según TestOperation, deberíamos tener 1 transacciones.
+        assertEquals(listIndividualTransaction.size(),1);
+    }
+
+    @Test
+    void lastTransactionsClient5() throws IOException, ClassNotFoundException {
+        Admin admin = new Admin();
+        TestOperation testOperation = new TestOperation();
+        testOperation.creadorOfertas();
+        testOperation.comprarTresOfertas();
+        List<Transaction> listIndividualTransaction = admin.getIndividualTransaction(admin.getClientList().get(4));
+        //Según TestOperation, deberíamos tener 2 transacciones.
+        assertEquals(listIndividualTransaction.size(),2);
+    }
+
+    @Test
+    void correctPurchaser() throws IOException, ClassNotFoundException {
+        Admin admin = new Admin();
+        List<Transaction> listIndividualTransaction = admin.getIndividualTransaction(admin.getClientList().get(1));
+        //Deberíamos obtener una transacción con comprador 'Kromi' y vendedor 'Guille'. Miraremos el comprador.
+        assertEquals(listIndividualTransaction.get(0).getPurchaser(),admin.getClientList().get(4).getEmail());
+    }
+
+    @Test
+    void correctSeller() throws IOException, ClassNotFoundException {
+        Admin admin = new Admin();
+        List<Transaction> listIndividualTransaction = admin.getIndividualTransaction(admin.getClientList().get(1));
+        //Deberíamos obtener una transacción con comprador 'Kromi' y vendedor 'Guille'. Miraremos el vendedor.
+        assertEquals(listIndividualTransaction.get(0).getSeller(),admin.getClientList().get(1).getEmail());
+    }
 }
