@@ -43,7 +43,7 @@ public class FilesCreator {
                 "alelopez@gmail.com", true, 0, false, false, null,comentarios); //Tipo 3
         Client client2 = new Client("Guille", "Mars",
                 "Kromagg", 8510, "Guille7", "Hola",
-                "Guillermo@gmail.com", false, 1, true, false, null,comentarios); //>Tipo 1
+                "Guillermo@gmail.com", false, 1, true, false, null,comentarios); //Tipo 1
         Client client3 = new Client("Nico", "Jupiter",
                 "Alien", 0256, "Nisco", "0123",
                 "NRC@gmail.com", true, 2, false, false, null,comentarios); //Tipo 0

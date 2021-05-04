@@ -37,7 +37,6 @@ public class TestOperation {
         //Creamos Oferta 1
         ArrayList<String> navesOferta1 = new ArrayList<>();
         navesOferta1.add(admin.getShipList().get(0).getNumeroRegistro());   //Client1
-        navesOferta1.add(admin.getShipList().get(2).getNumeroRegistro());   //Client1
         Date fechaLímite1 = new Date(2025, 3, 25);
         Offer oferta1 = new Offer("Test1", 2500, fechaLímite1, false, false, navesOferta1, fechaPublicacion);
         admin.addOffer(oferta1);
@@ -59,7 +58,7 @@ public class TestOperation {
 
         //Creamos Oferta 4
         ArrayList<String> navesOferta4 = new ArrayList<>();
-        navesOferta4.add(admin.getShipList().get(3).getNumeroRegistro());   //Client3
+        navesOferta4.add(admin.getShipList().get(2).getNumeroRegistro());   //Client1
         Date fechaLímite4 = new Date(2026, 1, 24);
         Offer oferta4 = new Offer("Test4", 4, fechaLímite2, false, false, navesOferta4, fechaPublicacion);
         admin.addOffer(oferta4);
@@ -72,7 +71,7 @@ public class TestOperation {
         admin.modifyOfferVisibility(listaOfertas.get(3), true);
     }
 
-    public void comprarTresOfertas() throws IOException, ClassNotFoundException {
+    public void comprarOfertas() throws IOException, ClassNotFoundException {
         Admin admin = new Admin();
         Calendar calendario = new GregorianCalendar();
         Date fechaPublicacion = new Date(calendario.get(Calendar.YEAR), calendario.get(Calendar.MONTH), calendario.get(Calendar.DAY_OF_MONTH),
@@ -98,6 +97,14 @@ public class TestOperation {
         //Comentario y Valoración 3
         String valoracion3 = "5Inmejorable, muy recomendable";
         admin.addComment(admin.getClientList().get(4), valoracion3);
+
+        //Compramos Oferta 4
+        Transaction transaction4 = new Transaction(admin.getClientList().get(1).getEmail(), admin.getClientList().get(0).getEmail(), admin.getPublishedOffers().get(3), fechaPublicacion);
+        admin.addTransaction(transaction4);
+        //Comentario y Valoración 3
+        String valoracion4 = "5Producto en perfecto estado";
+        admin.addComment(admin.getClientList().get(0), valoracion4);
+
     }
 
     public Nave crearNave1Test(){
