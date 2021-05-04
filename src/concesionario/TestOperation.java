@@ -158,5 +158,38 @@ public class TestOperation {
                 "TestEmail2", false, 2, false, false, null,comentarios);
         return client1;
     }
+
+    public Offer crearOferta1Test() throws IOException, ClassNotFoundException {
+        Admin admin = new Admin();
+        Calendar calendario = new GregorianCalendar();
+        Date fechaPublicacion = new Date(calendario.get(Calendar.YEAR), calendario.get(Calendar.MONTH), calendario.get(Calendar.DAY_OF_MONTH),
+                calendario.get(Calendar.HOUR_OF_DAY), calendario.get(Calendar.MINUTE), calendario.get(Calendar.SECOND));
+        ArrayList<String> navesOferta1 = new ArrayList<>();
+        navesOferta1.add(crearNave1Test().getNumeroRegistro());
+        Date fechaLímite1 = new Date(2025, 3, 25);
+        Offer oferta1 = new Offer("Test1", 2500, fechaLímite1, false, false, navesOferta1, fechaPublicacion);
+        return oferta1;
+    }
+
+    public Offer crearOferta2Test() throws IOException, ClassNotFoundException {
+        Admin admin = new Admin();
+        Calendar calendario = new GregorianCalendar();
+        Date fechaPublicacion = new Date(calendario.get(Calendar.YEAR), calendario.get(Calendar.MONTH), calendario.get(Calendar.DAY_OF_MONTH),
+                calendario.get(Calendar.HOUR_OF_DAY), calendario.get(Calendar.MINUTE), calendario.get(Calendar.SECOND));
+        ArrayList<String> navesOferta2 = new ArrayList<>();
+        navesOferta2.add(crearNave1Test().getNumeroRegistro());   //Client2
+        navesOferta2.add(crearNave2Test().getNumeroRegistro());   //Client2
+        Date fechaLímite2 = new Date(2024, 4, 24);
+        Offer oferta2 = new Offer("Test2", 5000, fechaLímite2, false, false, navesOferta2, fechaPublicacion);
+        return oferta2;
+    }
+
+    public Transaction crearTransaccion1Test() throws IOException, ClassNotFoundException {
+        Calendar calendario = new GregorianCalendar();
+        Date fechaPublicacion = new Date(calendario.get(Calendar.YEAR), calendario.get(Calendar.MONTH), calendario.get(Calendar.DAY_OF_MONTH),
+                calendario.get(Calendar.HOUR_OF_DAY), calendario.get(Calendar.MINUTE), calendario.get(Calendar.SECOND));
+        Transaction transaction1 = new Transaction(crearCliente1Test().getEmail(), crearCliente2Test().getEmail(), crearOferta1Test(), fechaPublicacion);
+         return transaction1;
+    }
 }
 
