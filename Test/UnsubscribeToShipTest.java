@@ -1,9 +1,6 @@
 import concesionario.Admin;
 import concesionario.Client;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.io.IOException;
 import java.util.*;
@@ -12,26 +9,43 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class UnsubscribeToShipTest {
 
+    // Objetos requeridos para las pruebas
+    static Client client;
+    static List<String> suscriptions;
+    static String[] tiposNaves;
 
     @BeforeAll
     static void beforeAll() {
         System.out.println("Prueba de la clase UnsubscribeToShip: ");
+        // Iniciamos los objetos
+        client = new Client("Alejandro", "Tatooine",
+                "Human", 7777, "AlexLopezAdrados", "alejandro",
+                "alelopez@gmail.com", true, 0, false,
+                false, null, null);
+        tiposNaves = new String[]{"Carguero", "Destructor", "Caza", "EstacionEspacial"};
+        suscriptions = new ArrayList<>();
+    }
+
+    @AfterAll
+    static void afterAll() {
     }
 
     @BeforeEach
-    void beforeEach() {
-        System.out.println("Probando método ");
+    @Disabled
+    void beforeEach() { }
+
+    @AfterEach
+    void afterEach(){
+        // Borramos las suscripciones y desuscribimos al usuario
+        suscriptions.clear();
+        client.setSuscritoCarguero(false);
+        client.setSuscritoDestructor(false);
+        client.setSuscritoCaza(false);
+        client.setSuscritoEstacionEspacial(false);
     }
 
     @Test
     void tiposNavesCorrecto() {
-        List<String> suscriptions = new ArrayList<>();
-        // Creamos cliente
-        Client client = new Client("Alejandro", "Tatooine",
-                "Human", 7777, "AlexLopezAdrados", "alejandro",
-                "alelopez@gmail.com", true, 0, false,
-                false, null, null);
-        String[] tiposNaves = {"Carguero", "Destructor", "Caza", "EstacionEspacial"};
 
         // Nos suscribimos a todos los tipos de naves
         client.setSuscritoCarguero(true);
@@ -40,33 +54,24 @@ class UnsubscribeToShipTest {
         client.setSuscritoEstacionEspacial(true);
 
         // En el bucle, no añadimos las suscripciones a las naves
+        // De esta forma comprobamos que llegamos a todas las ramas del if
         for (String s : tiposNaves){
-            if(client.isSuscritoCarguero()){
-
-            }
-            if(client.isSuscritoDestructor()){
-
-            }
-            if(client.isSuscritoCaza()){
-
-            }
-            if(client.isSuscritoEstacionEspacial()){
-            }
-            //Comprobamos que efectivamente está suscrito y no está añadido a suscripciones
-            assertEquals(suscriptions.isEmpty(), client.isSuscritoCarguero());
-            assertEquals(suscriptions.isEmpty(), client.isSuscritoDestructor());
-            assertEquals(suscriptions.isEmpty(), client.isSuscritoCaza());
-            assertEquals(suscriptions.isEmpty(), client.isSuscritoEstacionEspacial());
-        }
+            if(client.isSuscritoCarguero()){ }
+            if(client.isSuscritoDestructor()){ }
+            if(client.isSuscritoCaza()){ }
+            if(client.isSuscritoEstacionEspacial()){ }
+        } //Comprobamos que efectivamente está suscrito y no está añadido a suscripciones
+        assertAll(() -> assertEquals(suscriptions.isEmpty(), client.isSuscritoCarguero()),
+                  () -> assertEquals(suscriptions.isEmpty(), client.isSuscritoDestructor()),
+                  () -> assertEquals(suscriptions.isEmpty(), client.isSuscritoCaza()),
+                  () -> assertEquals(suscriptions.isEmpty(), client.isSuscritoEstacionEspacial()));
     }
 
     @Test
     void todasLasOpciones() {
-        List<String> suscriptions = new LinkedList<>();
         String[] tiposNaves = {"Carguero", "Destructor", "Caza", "EstacionEspacial"};
-        for (String s : tiposNaves){
-            suscriptions.add(s); // Nos suscribimos a todos los tipos
-        }
+        // Nos suscribimos a todos los tipos
+        suscriptions.addAll(Arrays.asList(tiposNaves));
         int contador = 0;
         // Queremos ver que recorre todos los tipos
         for(String opcion : suscriptions){
@@ -78,15 +83,7 @@ class UnsubscribeToShipTest {
 
     @Test
     void desuscripcionCorrecta() throws IOException, ClassNotFoundException {
-        Client client = new Client("Alejandro", "Tatooine",
-                "Human", 7777, "AlexLopezAdrados", "alejandro",
-                "alelopez@gmail.com", true, 0, false,
-                false, null, null);
-        List<String> suscriptions = new LinkedList<>();
-        String[] tiposNaves = {"Carguero", "Destructor", "Caza", "EstacionEspacial"};
-        for (String s : tiposNaves){
-            suscriptions.add(s); // Nos suscribimos a todos los tipos
-        }
+        Collections.addAll(suscriptions, tiposNaves);
 
         // Nos desuscribimos de todos los tipos
         Admin admin = new Admin();
@@ -104,21 +101,3 @@ class UnsubscribeToShipTest {
         assertFalse(client.isSuscritoEstacionEspacial());
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
