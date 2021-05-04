@@ -10,7 +10,7 @@ public class BuyOffer {
 
     public boolean verOfertas(int TipoUsuario, Client client) throws IOException, ClassNotFoundException {
         boolean ofertaVálida = false;
-        boolean navesVálidas = false;
+        boolean navesVálidas = true;
         List<String> validNaves = new ArrayList<>();
         boolean containsFilter = false;
         int contador = 1;
@@ -28,7 +28,7 @@ public class BuyOffer {
                         navesTotales.add(admin.searchShip(numReg));
                     }
                     for (Nave nave : navesTotales) {
-                        if (nave.getClass().getSimpleName().equals("Caza") && nave.getClass().getSimpleName().equals("Destructor") && nave.getClass().getSimpleName().equals("EstacionEspacial")) {
+                        if (nave.getClass().getSimpleName().equals("Caza") || nave.getClass().getSimpleName().equals("Destructor") || nave.getClass().getSimpleName().equals("EstacionEspacial")) {
                             navesVálidas = false;
                         }
                     }
@@ -50,6 +50,7 @@ public class BuyOffer {
                             }
                         }
                     }
+                    navesVálidas = true;
                     navesTotales = new ArrayList<>();
                 }
                 break;
@@ -62,7 +63,7 @@ public class BuyOffer {
                         navesTotales.add(admin.searchShip(numReg));
                     }
                     for (Nave nave : navesTotales) {
-                        if (nave.getClass().getSimpleName().equals("Destructor") && nave.getClass().getSimpleName().equals("EstacionEspacial")) {
+                        if (nave.getClass().getSimpleName().equals("Destructor") || nave.getClass().getSimpleName().equals("EstacionEspacial")) {
                             navesVálidas = false;
                         }
                         if (filterList.contains(nave.getClass().getSimpleName())) {
@@ -102,6 +103,7 @@ public class BuyOffer {
                             }
                         }
                     }
+                    navesVálidas = true;
                     containsFilter = false;
                     contadorEscrito = false;
                     navesTotales = new ArrayList<>();
@@ -224,7 +226,6 @@ public class BuyOffer {
             System.out.println("No hay ofertas disponibles\n");
             return true;
         }
-
     }
 
     private Offer seleccionarOferta() {

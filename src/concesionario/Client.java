@@ -61,6 +61,9 @@ public class Client implements Serializable {
     public String getEmail() {
         return email;
     }
+    public List<Nave> getNavesVenta() {
+        return navesVenta;
+    }
 
     public boolean isLicense() {
         return license;

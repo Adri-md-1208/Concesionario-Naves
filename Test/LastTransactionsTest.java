@@ -15,6 +15,7 @@ public class LastTransactionsTest {
     @BeforeAll
     static void beforeAll() throws IOException, ClassNotFoundException {
         TestOperation testOperation = new TestOperation();
+        testOperation.reinicioFicheros();
         testOperation.creadorOfertas();
         testOperation.comprarOfertas();
     }

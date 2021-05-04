@@ -10,16 +10,6 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public class ClientManagerTest {
 
-    @BeforeEach
-    void setUp() {
-        ClientManager clientManager = new ClientManager();
-    }
-
-    @AfterEach
-    void tearDown() {
-
-    }
-
     @Test
     void usuarioBloqueado() throws IOException {
 
