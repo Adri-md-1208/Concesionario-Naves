@@ -12,34 +12,32 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class LastTransactionsTest {
 
+    @BeforeAll
+    static void beforeAll() throws IOException, ClassNotFoundException {
+        TestOperation testOperation = new TestOperation();
+        testOperation.creadorOfertas();
+        testOperation.comprarOfertas();
+    }
+
     @Test
     void lastTransactionsClient1() throws IOException, ClassNotFoundException {
         Admin admin = new Admin();
-        TestOperation testOperation = new TestOperation();
-        testOperation.creadorOfertas();
-        testOperation.comprarTresOfertas();
         List<Transaction> listIndividualTransaction = admin.getIndividualTransaction(admin.getClientList().get(0));
         //Según TestOperation, deberíamos tener 2 transacciones.
-        assertEquals(listIndividualTransaction.size(),2);
+        assertEquals(listIndividualTransaction.size(),3);
     }
 
     @Test
     void lastTransactionsClient2() throws IOException, ClassNotFoundException {
         Admin admin = new Admin();
-        TestOperation testOperation = new TestOperation();
-        testOperation.creadorOfertas();
-        testOperation.comprarTresOfertas();
         List<Transaction> listIndividualTransaction = admin.getIndividualTransaction(admin.getClientList().get(1));
         //Según TestOperation, deberíamos tener 1 transacciones.
-        assertEquals(listIndividualTransaction.size(),1);
+        assertEquals(listIndividualTransaction.size(),2);
     }
 
     @Test
     void lastTransactionsClient3() throws IOException, ClassNotFoundException {
         Admin admin = new Admin();
-        TestOperation testOperation = new TestOperation();
-        testOperation.creadorOfertas();
-        testOperation.comprarTresOfertas();
         List<Transaction> listIndividualTransaction = admin.getIndividualTransaction(admin.getClientList().get(2));
         //Según TestOperation, deberíamos tener 0 transacciones (usuario bloqueado).
         assertEquals(listIndividualTransaction.size(),0);
@@ -48,9 +46,6 @@ public class LastTransactionsTest {
     @Test
     void lastTransactionsClient4() throws IOException, ClassNotFoundException {
         Admin admin = new Admin();
-        TestOperation testOperation = new TestOperation();
-        testOperation.creadorOfertas();
-        testOperation.comprarTresOfertas();
         List<Transaction> listIndividualTransaction = admin.getIndividualTransaction(admin.getClientList().get(3));
         //Según TestOperation, deberíamos tener 1 transacciones.
         assertEquals(listIndividualTransaction.size(),1);
@@ -59,9 +54,6 @@ public class LastTransactionsTest {
     @Test
     void lastTransactionsClient5() throws IOException, ClassNotFoundException {
         Admin admin = new Admin();
-        TestOperation testOperation = new TestOperation();
-        testOperation.creadorOfertas();
-        testOperation.comprarTresOfertas();
         List<Transaction> listIndividualTransaction = admin.getIndividualTransaction(admin.getClientList().get(4));
         //Según TestOperation, deberíamos tener 2 transacciones.
         assertEquals(listIndividualTransaction.size(),2);

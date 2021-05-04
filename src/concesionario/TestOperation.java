@@ -37,7 +37,6 @@ public class TestOperation {
         //Creamos Oferta 1
         ArrayList<String> navesOferta1 = new ArrayList<>();
         navesOferta1.add(admin.getShipList().get(0).getNumeroRegistro());   //Client1
-        navesOferta1.add(admin.getShipList().get(2).getNumeroRegistro());   //Client1
         Date fechaLímite1 = new Date(2025, 3, 25);
         Offer oferta1 = new Offer("Test1", 2500, fechaLímite1, false, false, navesOferta1, fechaPublicacion);
         admin.addOffer(oferta1);
@@ -59,7 +58,7 @@ public class TestOperation {
 
         //Creamos Oferta 4
         ArrayList<String> navesOferta4 = new ArrayList<>();
-        navesOferta4.add(admin.getShipList().get(3).getNumeroRegistro());   //Client3
+        navesOferta4.add(admin.getShipList().get(2).getNumeroRegistro());   //Client1
         Date fechaLímite4 = new Date(2026, 1, 24);
         Offer oferta4 = new Offer("Test4", 4, fechaLímite2, false, false, navesOferta4, fechaPublicacion);
         admin.addOffer(oferta4);
@@ -72,7 +71,7 @@ public class TestOperation {
         admin.modifyOfferVisibility(listaOfertas.get(3), true);
     }
 
-    public void comprarTresOfertas() throws IOException, ClassNotFoundException {
+    public void comprarOfertas() throws IOException, ClassNotFoundException {
         Admin admin = new Admin();
         Calendar calendario = new GregorianCalendar();
         Date fechaPublicacion = new Date(calendario.get(Calendar.YEAR), calendario.get(Calendar.MONTH), calendario.get(Calendar.DAY_OF_MONTH),
@@ -98,6 +97,14 @@ public class TestOperation {
         //Comentario y Valoración 3
         String valoracion3 = "5Inmejorable, muy recomendable";
         admin.addComment(admin.getClientList().get(4), valoracion3);
+
+        //Compramos Oferta 4
+        Transaction transaction4 = new Transaction(admin.getClientList().get(1).getEmail(), admin.getClientList().get(0).getEmail(), admin.getPublishedOffers().get(3), fechaPublicacion);
+        admin.addTransaction(transaction4);
+        //Comentario y Valoración 3
+        String valoracion4 = "5Producto en perfecto estado";
+        admin.addComment(admin.getClientList().get(0), valoracion4);
+
     }
 
     public Nave crearNave1Test(){
@@ -150,6 +157,39 @@ public class TestOperation {
                 "TestSpecie2", 0002, "TestNick2", "testPassword2",
                 "TestEmail2", false, 2, false, false, null,comentarios);
         return client1;
+    }
+
+    public Offer crearOferta1Test() throws IOException, ClassNotFoundException {
+        Admin admin = new Admin();
+        Calendar calendario = new GregorianCalendar();
+        Date fechaPublicacion = new Date(calendario.get(Calendar.YEAR), calendario.get(Calendar.MONTH), calendario.get(Calendar.DAY_OF_MONTH),
+                calendario.get(Calendar.HOUR_OF_DAY), calendario.get(Calendar.MINUTE), calendario.get(Calendar.SECOND));
+        ArrayList<String> navesOferta1 = new ArrayList<>();
+        navesOferta1.add(crearNave1Test().getNumeroRegistro());
+        Date fechaLímite1 = new Date(2025, 3, 25);
+        Offer oferta1 = new Offer("Test1", 2500, fechaLímite1, false, false, navesOferta1, fechaPublicacion);
+        return oferta1;
+    }
+
+    public Offer crearOferta2Test() throws IOException, ClassNotFoundException {
+        Admin admin = new Admin();
+        Calendar calendario = new GregorianCalendar();
+        Date fechaPublicacion = new Date(calendario.get(Calendar.YEAR), calendario.get(Calendar.MONTH), calendario.get(Calendar.DAY_OF_MONTH),
+                calendario.get(Calendar.HOUR_OF_DAY), calendario.get(Calendar.MINUTE), calendario.get(Calendar.SECOND));
+        ArrayList<String> navesOferta2 = new ArrayList<>();
+        navesOferta2.add(crearNave1Test().getNumeroRegistro());   //Client2
+        navesOferta2.add(crearNave2Test().getNumeroRegistro());   //Client2
+        Date fechaLímite2 = new Date(2024, 4, 24);
+        Offer oferta2 = new Offer("Test2", 5000, fechaLímite2, false, false, navesOferta2, fechaPublicacion);
+        return oferta2;
+    }
+
+    public Transaction crearTransaccion1Test() throws IOException, ClassNotFoundException {
+        Calendar calendario = new GregorianCalendar();
+        Date fechaPublicacion = new Date(calendario.get(Calendar.YEAR), calendario.get(Calendar.MONTH), calendario.get(Calendar.DAY_OF_MONTH),
+                calendario.get(Calendar.HOUR_OF_DAY), calendario.get(Calendar.MINUTE), calendario.get(Calendar.SECOND));
+        Transaction transaction1 = new Transaction(crearCliente1Test().getEmail(), crearCliente2Test().getEmail(), crearOferta1Test(), fechaPublicacion);
+         return transaction1;
     }
 }
 

@@ -276,6 +276,9 @@ public class FileManager {
 
     //Fichero ofertas
     public void writeOffer(Offer offer) throws IOException {
+        if (!offerFile.exists()) {
+            offerFile.createNewFile();
+        }
         ObjectOutputStream writer;
         if (offerFile.length() == 0) {
             writer = new ObjectOutputStream(new FileOutputStream(offerFile));

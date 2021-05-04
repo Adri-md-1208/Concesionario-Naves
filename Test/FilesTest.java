@@ -39,11 +39,11 @@ public class FilesTest {
         List<Nave> lista= admin.getShipList();
         Boolean correcto1 = false;
         Boolean correcto2 = false;
-        admin.changePropietario(test.crearNave1Test(),test.crearCliente1Test());//Cambiar método
+        admin.changePropietario(lista.get(0),test.crearCliente1Test());//Cambiar método
         lista = admin.getShipList();
         for (Nave nave : lista){
             if(nave.getNumeroRegistro().equals("numTest")){
-                correcto1 = nave.getPropietario().getName().equals("ClienteCambiado");
+                correcto1 = nave.getPropietario().getName().equals("TestName1");
             }
         }
         assertTrue(correcto1);
@@ -92,6 +92,93 @@ public class FilesTest {
         assertTrue(correcto1&&correcto2);
     }
 
+    @Test
+    void inserciónYLecturaDeOfertas() throws IOException, ClassNotFoundException {
+        TestOperation test = new TestOperation();
+        Admin admin = new Admin();
+        admin.addOffer(test.crearOferta1Test());
+        admin.addOffer(test.crearOferta2Test());
+        List<Offer> lista= admin.getUnpublishedOffers();
+        Boolean correcto1 = false;
+        Boolean correcto2 = false;
+        for (Offer oferta : lista){
+            if(oferta.getDescription().equals("Test1")){
+                correcto1 = true;
+            }
+            if(oferta.getDescription().equals("Test2")){
+                correcto2 = true;
+            }
+        }
+        assertTrue(correcto1&&correcto2);
+    }
+
+    @Test
+    void modificacionDeOfertas() throws IOException, ClassNotFoundException {
+        TestOperation test = new TestOperation();
+        Admin admin = new Admin();
+        admin.addOffer(test.crearOferta1Test());
+        admin.addOffer(test.crearOferta2Test());
+        List <Offer> lista = admin.getUnpublishedOffers();
+        Boolean correcto1 = false;
+        Boolean correcto2 = false;
+        admin.modifyOfferVisibility(lista.get(0),true);
+        lista = admin.getUnpublishedOffers();
+        List <Offer> lista2 = admin.getPublishedOffers();
+        for (Offer ofertaPublicada : lista2) {
+            if (ofertaPublicada.getDescription().equals("Test1")) {
+                correcto1 = ofertaPublicada.isPublished();
+            }
+        }
+            for (Offer ofertaSinPublicar : lista){
+                if(ofertaSinPublicar.getDescription().equals("Test2")){
+                    correcto2 = !ofertaSinPublicar.isPublished();
+                }
+            }
+        assertTrue(correcto1&&correcto2);
+    }
+
+    @Test
+    void borrarOfertaTest() throws IOException, ClassNotFoundException {
+        TestOperation test = new TestOperation();
+        Admin admin = new Admin();
+        admin.addOffer(test.crearOferta1Test());
+        admin.addOffer(test.crearOferta2Test());
+        List <Offer> lista = admin.getUnpublishedOffers();
+        Boolean correcto1 = false;
+        Boolean correcto2 = false;
+        admin.modifyOfferVisibility(lista.get(0),true);
+        lista = admin.getUnpublishedOffers();
+        List <Offer> lista2 = admin.getPublishedOffers();
+        for (Offer ofertaPublicada : lista2) {
+            if (ofertaPublicada.getDescription().equals("Test1")) {
+                correcto1 = ofertaPublicada.isPublished();
+            }
+        }
+        for (Offer ofertaSinPublicar : lista){
+            if(ofertaSinPublicar.getDescription().equals("Test2")){
+                correcto2 = !ofertaSinPublicar.isPublished();
+            }
+        }
+        admin.deleteOffer(lista.get(0));
+        Boolean correcto3 = admin.getUnpublishedOffers().isEmpty();
+        Boolean correcto4 = !admin.getPublishedOffers().isEmpty();
+        assertTrue(correcto1&&correcto2&&correcto3&&correcto4);
+    }
+
+    @Test
+    void inserciónYLecturaDeTransaccion() throws IOException, ClassNotFoundException {
+        TestOperation test = new TestOperation();
+        Admin admin = new Admin();
+        admin.addTransaction(test.crearTransaccion1Test());
+        List<Transaction> lista= admin.getIndividualTransaction(test.crearCliente1Test());
+        Boolean correcto1 = false;
+        for (Transaction transaccion : lista){
+            if(transaccion.getOffer().getDescription().equals("Test1")){
+                correcto1 = true;
+            }
+        }
+        assertTrue(correcto1);
+    }
 
     @BeforeAll
     static void beforeAll() {
