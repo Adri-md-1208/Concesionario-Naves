@@ -517,8 +517,8 @@ public class TestOperation {
         Arma arma1 = new Arma(Arma.TipoArma.Cañón_Blaster, 2500);
         Arma[] armas1 = new Arma[2];
         armas1[0] = arma1;
-        Creator destCreator = new DestructorCreator();
-        Nave nave1 = destCreator.crearNave("numTest", client1, motor1, 1000, null, 0, defensas1, armas1, 0, null);
+        Creator cazCreator = new CazaCreator();
+        Nave nave1 = cazCreator.crearNave("numTest", client1, motor1, 1000, null, 0, defensas1, armas1, 0, null);
         return nave1;
     }
 
@@ -588,6 +588,21 @@ public class TestOperation {
                 calendario.get(Calendar.HOUR_OF_DAY), calendario.get(Calendar.MINUTE), calendario.get(Calendar.SECOND));
         Transaction transaction1 = new Transaction(crearCliente1Test().getEmail(), crearCliente2Test().getEmail(), crearOferta1Test(), fechaPublicacion);
         return transaction1;
+    }
+
+    public void crearOferta() throws IOException, ClassNotFoundException {
+        Admin admin = new Admin();
+        Calendar calendario = new GregorianCalendar();
+        Date fechaPublicacion = new Date(calendario.get(Calendar.YEAR), calendario.get(Calendar.MONTH), calendario.get(Calendar.DAY_OF_MONTH),
+                calendario.get(Calendar.HOUR_OF_DAY), calendario.get(Calendar.MINUTE), calendario.get(Calendar.SECOND));
+        admin.addShip(crearNave1Test());
+        admin.addShip(crearNave2Test());
+        ArrayList<String> navesOferta2 = new ArrayList<>();
+        navesOferta2.add(admin.getShipList().get(0).getNumeroRegistro());
+        navesOferta2.add(admin.getShipList().get(1).getNumeroRegistro());
+        Date fechaLímite2 = new Date(2024, 4, 24);
+        Offer oferta2 = new Offer("Test2", 5000, fechaLímite2, false, false, navesOferta2, fechaPublicacion);
+        admin.addOffer(oferta2);
     }
 }
 
