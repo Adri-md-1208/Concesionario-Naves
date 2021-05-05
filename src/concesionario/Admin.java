@@ -171,19 +171,11 @@ public class Admin {
     }
 
     public void setSuscriptor(String tipo, Client cliente, Boolean estado)throws IOException, ClassNotFoundException{
-        switch (tipo){
-            case "Estacion Espacial":
-                fileManager.modifySuscEE(cliente,estado);
-                break;
-            case "Destructor":
-                fileManager.modifySuscDest(cliente, estado);
-                break;
-            case "Caza":
-                fileManager.modifySuscCaza(cliente, estado);
-                break;
-            case "Carguero":
-                fileManager.modifySuscCarg(cliente, estado);
-                break;
+        switch (tipo) {
+            case "Estacion Espacial" -> fileManager.modifySuscEE(cliente, estado);
+            case "Destructor" -> fileManager.modifySuscDest(cliente, estado);
+            case "Caza" -> fileManager.modifySuscCaza(cliente, estado);
+            case "Carguero" -> fileManager.modifySuscCarg(cliente, estado);
         }
     }
 }

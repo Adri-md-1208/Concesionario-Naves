@@ -7,7 +7,7 @@ public class SubscribeToShip {
 
     public void subscribe(Client client) throws IOException, ClassNotFoundException {
         System.out.println("Elija el tipo de nave a la que suscribirse:");
-        String[] tipos = {"Estacion espacial", "Destructor", "Carguero", "Caza"};
+        String[] tipos = {"Carguero", "Destructor", "Caza", "Estacion Espacial"};
         int cont = 1;
         for (String tipo : tipos) {
             System.out.println(cont++ + ". " + tipo);

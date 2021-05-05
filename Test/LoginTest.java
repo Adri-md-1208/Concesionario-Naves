@@ -1,90 +1,86 @@
 import concesionario.Admin;
 import concesionario.Client;
-import concesionario.Login;
 import org.junit.jupiter.api.*;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.*;
 public class LoginTest {
     public Client client;
     @BeforeAll
-    static void beforeAll() {
+    static void beforeAll() { }
+
+    String mail;
+    String mailIncorrecto;
+    String adminMail;
+    Admin admin;
+    Boolean found;
+    List<Client> clientList;
+    String contraseña;
+    String contraseñaFalsa;
+    String contraseñaAdmin;
+    String contraseñaFalsaAdmin;
+
+    @BeforeEach
+    void beforeEach() throws IOException, ClassNotFoundException {
+        client = new Client("Alejandro", "Tatooine",
+                "Human", 7777, "AlexLopezAdrados", "alejandro",
+                "alelopez@gmail.com", true, 0, false,
+                false, null, null);
+        mail = "alelopez@gmail.com";
+        mailIncorrecto = "mailFalso";
+        adminMail = "Admin";
+        admin = new Admin();
+        found = false;
+        clientList = admin.getClientList();
+        contraseña = client.getPassword();
+        contraseñaFalsa = "False";
+        contraseñaAdmin = "Admin";
+        contraseñaFalsaAdmin = "admin";
+    }
+
+
+    @Test
+    @Disabled
+    void usuarioClienteCorrecto() {
+        Boolean match = false;
+        // Vemos que, en el caso de que sea cliente, coincide el mail
+        for (Client client : clientList) {
+            if (client.getEmail().equals(mail)) match = true;
+        }
+        assertTrue(match);
     }
 
     @Test
-    void usuarioCorrecto() throws IOException, ClassNotFoundException {
-        System.out.println("Por favor, introduzca su email");
-        String mail = "alelopez@gmail.com";
-        boolean found = true;
-        if (!mail.equals("Admin")){
-            Admin admin = new Admin();
-            List<Client> clientList = admin.getClientList();
-            found = false;
-            for (Client clientSearch : clientList) {
-                if (clientSearch.getEmail().equals(mail)) {
-                    client = clientSearch;
-                    found = true;
-                }
-            }
-        }
-        assertEquals(client.getNick(),"AlexLopezAdrados");
+    @Disabled
+    void usuarioAdminCorrecto() {
+        assertEquals("Admin", adminMail);
     }
 
     @Test
-    void usuarioNoExiste() throws IOException, ClassNotFoundException {
-        System.out.println("Por favor, introduzca su email");
-        String mail = "AA";
-        boolean found = true;
-        if (!mail.equals("Admin")){
-            Admin admin = new Admin();
-            List<Client> clientList = admin.getClientList();
-            found = false;
-            for (Client clientSearch : clientList) {
-                if (clientSearch.getEmail().equals(mail)) {
-                    client = clientSearch;
-                    found = true;
-                }
-            }
+    @Disabled
+    void usuarioNoExiste() {
+        Boolean match = false;
+        // Buscamos si coincide el mail en la lista
+        for (Client client : clientList) {
+            if (client.getEmail().equals(mailIncorrecto)) match = true;
         }
-
-        if (found == false) {
-            System.out.println("Este cliente no está registrado\n");
-        }
-        assertFalse(found);
+        // No hay coincidencias
+        assertFalse(match);
     }
 
     @Test
-    void usuarioAdmin() throws IOException, ClassNotFoundException {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Por favor, introduzca su email");
-        String mail = "Admin";
-        boolean found = true;
-        if (!mail.equals("Admin")){
-            Admin admin = new Admin();
-            List<Client> clientList = admin.getClientList();
-            found = false;
-            for (Client clientSearch : clientList) {
-                if (clientSearch.getEmail().equals(mail)) {
-                    client = clientSearch;
-                    found = true;
-                }
-            }
-        }
-
-        if (found == false) {
-            System.out.println("Este cliente no está registrado\n");
-        }
-        try{
-            System.out.println(client.getNick() + ", introduzca su contraseña por favor"); //nick sin comillas cuando se tenga el nick del cliente.
-        }
-        catch(Exception noNick){
-            System.out.println("Introduzca su contraseña de admin");
-        }
-        /*assertThrows(nullPoin.class,()->{
-            System.out.println("ok");
-        });*/
+    @Disabled
+    void probarContraseñas() {
+        assertAll(
+                // Cliente
+                () -> assertEquals(client.getPassword(), contraseña),
+        // Cliente incorrecto
+        () -> assertNotEquals(client.getPassword(), contraseñaFalsa),
+        // Admin
+                () -> assertEquals("Admin", contraseñaAdmin),
+        // Admin incorrecto
+                () -> assertNotEquals("Admin", contraseñaFalsaAdmin));
     }
 }
