@@ -31,7 +31,7 @@ public class LoginTest {
                 "Human", 7777, "AlexLopezAdrados", "alejandro",
                 "alelopez@gmail.com", true, 0, false,
                 false, null, null);
-        mail = "alelopez@gmail.com";
+        mail = "TestEmail1";//"alelopez@gmail.com";
         mailIncorrecto = "mailFalso";
         adminMail = "Admin";
         admin = new Admin();

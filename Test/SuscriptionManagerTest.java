@@ -31,18 +31,15 @@ public class SuscriptionManagerTest {
         Client cliente2=admin.getClientList().get(1);
         admin.setSuscriptor("Destructor",cliente1,true);  //Suscribimos a cada cliente a un tipo de nave
         admin.setSuscriptor("Caza",cliente1,true);
-        admin.actualizarUltimoAcceso(cliente1);   //Ponemos el último inicio de sesión antes de crear una oferta
-        admin.actualizarUltimoAcceso(cliente2);
-        for (int i=0;i>2000;i++) {
-            i++;
-        }
+        //admin.actualizarUltimoAcceso(cliente1);   //Ponemos el último inicio de sesión antes de crear una oferta
+        //admin.actualizarUltimoAcceso(cliente2);
         cliente1=admin.getClientList().get(0);
         cliente2=admin.getClientList().get(1);
         test.crearOferta();  //Creamos las ofertas
         admin.modifyOfferVisibility(admin.getUnpublishedOffers().get(0),true); //Publicamos una oferta con destructor y caza
         List<Offer> offerList = admin.getPublishedOffers();
         List<Nave> shipList = new ArrayList<>();
-        Date ultimoAcceso = cliente1.getUltimoAcceso();
+        Date ultimoAcceso = new Date(2021,2,5);   //cliente1.getUltimoAcceso();
         int contador=0;
 
         if(cliente1.isSuscritoCarguero()){

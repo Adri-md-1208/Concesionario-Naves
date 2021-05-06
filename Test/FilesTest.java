@@ -194,4 +194,16 @@ public class FilesTest {
 
     }
 
+    @BeforeEach
+    void setUp() {
+        File naves = new File("Ships.dat");
+        File  clientes = new File("Clients.dat");
+        File transacciones = new File("Transactions.dat");
+        File ofertas = new File("Offers.dat");
+        naves.delete();
+        clientes.delete();
+        transacciones.delete();
+        ofertas.delete();
+
+    }
 }
