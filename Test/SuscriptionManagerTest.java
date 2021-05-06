@@ -8,8 +8,21 @@ import java.util.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class SuscriptionManagerTest {
+
+    @BeforeAll
+    static void beforeAll() {
+        File naves = new File("Ships.dat");
+        File  clientes = new File("Clients.dat");
+        File transacciones = new File("Transactions.dat");
+        File ofertas = new File("Offers.dat");
+        naves.delete();
+        clientes.delete();
+        transacciones.delete();
+        ofertas.delete();
+    }
+
     @Test
-    void showOfferTest() throws IOException, ClassNotFoundException {
+    void showOfferTest() throws IOException, ClassNotFoundException, InterruptedException {
         TestOperation test = new TestOperation();
         Admin admin = new Admin();
         admin.addClient(test.crearCliente1Test());
@@ -20,6 +33,9 @@ public class SuscriptionManagerTest {
         admin.setSuscriptor("Caza",cliente1,true);
         admin.actualizarUltimoAcceso(cliente1);   //Ponemos el último inicio de sesión antes de crear una oferta
         admin.actualizarUltimoAcceso(cliente2);
+        for (int i=0;i>2000;i++) {
+            i++;
+        }
         cliente1=admin.getClientList().get(0);
         cliente2=admin.getClientList().get(1);
         test.crearOferta();  //Creamos las ofertas
@@ -74,18 +90,5 @@ public class SuscriptionManagerTest {
             }
         }
         assertEquals(contador,2);  //Devuelve el 1 de la oferta nueva que hay de destructor
-    }
-
-    @BeforeAll
-    static void beforeAll() {
-        File naves = new File("Ships.dat");
-        File  clientes = new File("Clients.dat");
-        File transacciones = new File("Transactions.dat");
-        File ofertas = new File("Offers.dat");
-        naves.delete();
-        clientes.delete();
-        transacciones.delete();
-        ofertas.delete();
-
     }
 }

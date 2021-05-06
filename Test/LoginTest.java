@@ -6,10 +6,13 @@ import java.io.IOException;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+
 public class LoginTest {
     public Client client;
+
     @BeforeAll
-    static void beforeAll() { }
+    static void beforeAll() {
+    }
 
     String mail;
     String mailIncorrecto;
@@ -42,7 +45,6 @@ public class LoginTest {
 
 
     @Test
-    @Disabled
     void usuarioClienteCorrecto() {
         Boolean match = false;
         // Vemos que, en el caso de que sea cliente, coincide el mail
@@ -53,13 +55,11 @@ public class LoginTest {
     }
 
     @Test
-    @Disabled
     void usuarioAdminCorrecto() {
         assertEquals("Admin", adminMail);
     }
 
     @Test
-    @Disabled
     void usuarioNoExiste() {
         Boolean match = false;
         // Buscamos si coincide el mail en la lista
@@ -71,16 +71,15 @@ public class LoginTest {
     }
 
     @Test
-    @Disabled
     void probarContraseñas() {
         assertAll(
                 // Cliente
                 () -> assertEquals(client.getPassword(), contraseña),
-        // Cliente incorrecto
-        () -> assertNotEquals(client.getPassword(), contraseñaFalsa),
-        // Admin
+                // Cliente incorrecto
+                () -> assertNotEquals(client.getPassword(), contraseñaFalsa),
+                // Admin
                 () -> assertEquals("Admin", contraseñaAdmin),
-        // Admin incorrecto
+                // Admin incorrecto
                 () -> assertNotEquals("Admin", contraseñaFalsaAdmin));
     }
 }

@@ -1,30 +1,31 @@
 import concesionario.Admin;
-import concesionario.Client;
+import concesionario.TestOperation;
 import org.junit.jupiter.api.*;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.*;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class UnsubscribeToShipTest {
 
-    // Necesitamos iniciar el programa para que el archivo clientes exista
+    // Necesitamos iniciar el programa para que el archivo admin.getClientList().get(0) exista
 
     // Objetos requeridos para las pruebas
-    static Client client;
+    static Admin admin;
     static List<String> suscriptions;
     static String[] tiposNaves;
 
     @BeforeAll
-    static void beforeAll() {
+    static void beforeAll() throws IOException {
+        TestOperation testOperation = new TestOperation();
+        File clientsFile = new File("Clients.dat");
+        clientsFile.delete();
+        admin = new Admin();
+        admin.addClient(testOperation.crearCliente1Test());
         System.out.println("Prueba de la clase UnsubscribeToShip: ");
         // Iniciamos los objetos
-        client = new Client("Alejandro", "Tatooine",
-                "Human", 7777, "AlexLopezAdrados", "alejandro",
-                "alelopez@gmail.com", true, 0, false,
-                false, null, null);
-        tiposNaves = new String[]{"Carguero", "Destructor", "Caza", "EstacionEspacial"};
+        tiposNaves = new String[]{"Carguero", "Destructor", "Caza", "Estacion Espacial"};
         suscriptions = new ArrayList<>();
     }
 
@@ -33,45 +34,42 @@ class UnsubscribeToShipTest {
     }
 
     @BeforeEach
-    @Disabled
     void beforeEach() { }
 
     @AfterEach
-    void afterEach(){
+    void afterEach() throws IOException, ClassNotFoundException {
         // Borramos las suscripciones y desuscribimos al usuario
         suscriptions.clear();
-        client.setSuscritoCarguero(false);
-        client.setSuscritoDestructor(false);
-        client.setSuscritoCaza(false);
-        client.setSuscritoEstacionEspacial(false);
+        admin.getClientList().get(0).setSuscritoCarguero(false);
+        admin.getClientList().get(0).setSuscritoDestructor(false);
+        admin.getClientList().get(0).setSuscritoCaza(false);
+        admin.getClientList().get(0).setSuscritoEstacionEspacial(false);
     }
 
     @Test
-    @Disabled
-    void tiposNavesCorrecto() {
+    void tiposNavesCorrecto() throws IOException, ClassNotFoundException {
 
         // Nos suscribimos a todos los tipos de naves
-        client.setSuscritoCarguero(true);
-        client.setSuscritoDestructor(true);
-        client.setSuscritoCaza(true);
-        client.setSuscritoEstacionEspacial(true);
+        admin.getClientList().get(0).setSuscritoCarguero(true);
+        admin.getClientList().get(0).setSuscritoDestructor(true);
+        admin.getClientList().get(0).setSuscritoCaza(true);
+        admin.getClientList().get(0).setSuscritoEstacionEspacial(true);
 
         // En el bucle, no añadimos las suscripciones a las naves
         // De esta forma comprobamos que llegamos a todas las ramas del if
         for (String s : tiposNaves){
-            if(client.isSuscritoCarguero()){ }
-            if(client.isSuscritoDestructor()){ }
-            if(client.isSuscritoCaza()){ }
-            if(client.isSuscritoEstacionEspacial()){ }
+            if(admin.getClientList().get(0).isSuscritoCarguero()){ }
+            if(admin.getClientList().get(0).isSuscritoDestructor()){ }
+            if(admin.getClientList().get(0).isSuscritoCaza()){ }
+            if(admin.getClientList().get(0).isSuscritoEstacionEspacial()){ }
         } //Comprobamos que efectivamente está suscrito y no está añadido a suscripciones
-        assertAll(() -> assertEquals(suscriptions.isEmpty(), client.isSuscritoCarguero()),
-                  () -> assertEquals(suscriptions.isEmpty(), client.isSuscritoDestructor()),
-                  () -> assertEquals(suscriptions.isEmpty(), client.isSuscritoCaza()),
-                  () -> assertEquals(suscriptions.isEmpty(), client.isSuscritoEstacionEspacial()));
+        assertAll(() -> assertEquals(suscriptions.isEmpty(), admin.getClientList().get(0).isSuscritoCarguero()),
+                  () -> assertEquals(suscriptions.isEmpty(), admin.getClientList().get(0).isSuscritoDestructor()),
+                  () -> assertEquals(suscriptions.isEmpty(), admin.getClientList().get(0).isSuscritoCaza()),
+                  () -> assertEquals(suscriptions.isEmpty(), admin.getClientList().get(0).isSuscritoEstacionEspacial()));
     }
 
     @Test
-    @Disabled
     void todasLasOpciones() {
         String[] tiposNaves = {"Carguero", "Destructor", "Caza", "EstacionEspacial"};
         // Nos suscribimos a todos los tipos
@@ -86,23 +84,22 @@ class UnsubscribeToShipTest {
     }
 
     @Test
-    @Disabled
     void desuscripcionCorrecta() throws IOException, ClassNotFoundException {
         Collections.addAll(suscriptions, tiposNaves);
 
         // Nos desuscribimos de todos los tipos
         Admin admin = new Admin();
         // Carguero
-        admin.setSuscriptor(suscriptions.get(0), client, false);
-        assertFalse(client.isSuscritoCarguero());
+        admin.setSuscriptor(suscriptions.get(0), admin.getClientList().get(0), false);
+        assertFalse(admin.getClientList().get(0).isSuscritoCarguero());
         // Destructor
-        admin.setSuscriptor(suscriptions.get(1), client, false);
-        assertFalse(client.isSuscritoDestructor());
+        admin.setSuscriptor(suscriptions.get(1), admin.getClientList().get(0), false);
+        assertFalse(admin.getClientList().get(0).isSuscritoDestructor());
         // Caza
-        admin.setSuscriptor(suscriptions.get(2), client, false);
-        assertFalse(client.isSuscritoCaza());
+        admin.setSuscriptor(suscriptions.get(2), admin.getClientList().get(0), false);
+        assertFalse(admin.getClientList().get(0).isSuscritoCaza());
         // Estacion Espacial
-        admin.setSuscriptor(suscriptions.get(3), client, false);
-        assertFalse(client.isSuscritoEstacionEspacial());
+        admin.setSuscriptor(suscriptions.get(3), admin.getClientList().get(0), false);
+        assertFalse(admin.getClientList().get(0).isSuscritoEstacionEspacial());
     }
 }
