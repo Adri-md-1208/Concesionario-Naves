@@ -1,7 +1,10 @@
 import concesionario.Admin;
+import concesionario.FilesCreator;
 import concesionario.TestOperation;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +17,18 @@ public class MyRatingsTest {
     @BeforeAll
     static void beforeAll() throws IOException, ClassNotFoundException {
         TestOperation testOperation = new TestOperation();
-        testOperation.reinicioFicheros();
+        //testOperation.reinicioFicheros();
+        File naves = new File("Ships.dat");
+        File  clientes = new File("Clients.dat");
+        File transacciones = new File("Transactions.dat");
+        File ofertas = new File("Offers.dat");
+        naves.delete();
+        clientes.delete();
+        transacciones.delete();
+        ofertas.delete();
+        FilesCreator files = new FilesCreator();
+        files.ClientCreator();
+        files.ShipCreator();
         testOperation.creadorOfertas();
         testOperation.comprarOfertas();
     }
