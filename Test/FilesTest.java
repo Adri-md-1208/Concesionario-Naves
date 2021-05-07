@@ -1,7 +1,9 @@
 import concesionario.*;
 import org.junit.jupiter.api.*;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
@@ -181,29 +183,58 @@ public class FilesTest {
         assertTrue(correcto1);
     }
 
-    @BeforeAll
-    static void beforeAll() {
+    /*@BeforeAll
+    static void beforeAll() throws IOException, ClassNotFoundException {
+        TestOperation testOperation = new TestOperation();
+        //testOperation.reinicioFicheros();
         File naves = new File("Ships.dat");
-        File  clientes = new File("Clients.dat");
+        File clientes = new File("Clients.dat");
         File transacciones = new File("Transactions.dat");
         File ofertas = new File("Offers.dat");
-        naves.delete();
-        clientes.delete();
-        transacciones.delete();
-        ofertas.delete();
-
-    }
+        BufferedWriter bwN = new BufferedWriter(new FileWriter(naves));
+        bwN.write("");
+        bwN.close();
+        //naves.delete(); NO FUNCIONA EN WINDOWS.
+        BufferedWriter bwC = new BufferedWriter(new FileWriter(clientes));
+        bwC.write("");
+        bwC.close();
+        //clientes.delete();
+        BufferedWriter bwT = new BufferedWriter(new FileWriter(transacciones));
+        bwT.write("");
+        bwT.close();
+        //transacciones.delete();
+        BufferedWriter bwO = new BufferedWriter(new FileWriter(ofertas));
+        bwO.write("");
+        bwO.close();
+        //ofertas.delete();
+        FilesCreator files = new FilesCreator();
+        files.ClientCreator();
+        files.ShipCreator();
+        testOperation.creadorOfertas();
+    }*/
 
     @BeforeEach
-    void setUp() {
+    void setUp() throws IOException, ClassNotFoundException {
+        TestOperation testOperation = new TestOperation();
         File naves = new File("Ships.dat");
-        File  clientes = new File("Clients.dat");
+        File clientes = new File("Clients.dat");
         File transacciones = new File("Transactions.dat");
         File ofertas = new File("Offers.dat");
-        naves.delete();
-        clientes.delete();
-        transacciones.delete();
-        ofertas.delete();
-
+        BufferedWriter bwN = new BufferedWriter(new FileWriter(naves));
+        bwN.write("");
+        bwN.close();
+        //naves.delete(); NO FUNCIONA EN WINDOWS.
+        BufferedWriter bwC = new BufferedWriter(new FileWriter(clientes));
+        bwC.write("");
+        bwC.close();
+        //clientes.delete();
+        BufferedWriter bwT = new BufferedWriter(new FileWriter(transacciones));
+        bwT.write("");
+        bwT.close();
+        //transacciones.delete();
+        BufferedWriter bwO = new BufferedWriter(new FileWriter(ofertas));
+        bwO.write("");
+        bwO.close();
+        //ofertas.delete();
     }
 }

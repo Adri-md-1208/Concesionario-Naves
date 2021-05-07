@@ -8,9 +8,12 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class LastTransactionsTest {
@@ -20,13 +23,25 @@ public class LastTransactionsTest {
         TestOperation testOperation = new TestOperation();
         //testOperation.reinicioFicheros();
         File naves = new File("Ships.dat");
-        File  clientes = new File("Clients.dat");
+        File clientes = new File("Clients.dat");
         File transacciones = new File("Transactions.dat");
         File ofertas = new File("Offers.dat");
-        naves.delete();
-        clientes.delete();
-        transacciones.delete();
-        ofertas.delete();
+        BufferedWriter bwN = new BufferedWriter(new FileWriter(naves));
+        bwN.write("");
+        bwN.close();
+        //naves.delete(); NO FUNCIONA EN WINDOWS.
+        BufferedWriter bwC = new BufferedWriter(new FileWriter(clientes));
+        bwC.write("");
+        bwC.close();
+        //clientes.delete();
+            BufferedWriter bwT = new BufferedWriter(new FileWriter(transacciones));
+        bwT.write("");
+        bwT.close();
+        //transacciones.delete();
+        BufferedWriter bwO = new BufferedWriter(new FileWriter(ofertas));
+        bwO.write("");
+        bwO.close();
+        //ofertas.delete();
         FilesCreator files = new FilesCreator();
         files.ClientCreator();
         files.ShipCreator();
@@ -39,7 +54,7 @@ public class LastTransactionsTest {
         Admin admin = new Admin();
         List<Transaction> listIndividualTransaction = admin.getIndividualTransaction(admin.getClientList().get(0));
         //Según TestOperation, deberíamos tener 2 transacciones.
-        assertEquals(listIndividualTransaction.size(),3);
+        assertEquals(listIndividualTransaction.size(), 3);
     }
 
     @Test
@@ -47,7 +62,7 @@ public class LastTransactionsTest {
         Admin admin = new Admin();
         List<Transaction> listIndividualTransaction = admin.getIndividualTransaction(admin.getClientList().get(1));
         //Según TestOperation, deberíamos tener 1 transacciones.
-        assertEquals(listIndividualTransaction.size(),2);
+        assertEquals(listIndividualTransaction.size(), 2);
     }
 
     @Test
@@ -55,7 +70,7 @@ public class LastTransactionsTest {
         Admin admin = new Admin();
         List<Transaction> listIndividualTransaction = admin.getIndividualTransaction(admin.getClientList().get(2));
         //Según TestOperation, deberíamos tener 0 transacciones (usuario bloqueado).
-        assertEquals(listIndividualTransaction.size(),0);
+        assertEquals(listIndividualTransaction.size(), 0);
     }
 
     @Test
@@ -63,7 +78,7 @@ public class LastTransactionsTest {
         Admin admin = new Admin();
         List<Transaction> listIndividualTransaction = admin.getIndividualTransaction(admin.getClientList().get(3));
         //Según TestOperation, deberíamos tener 1 transacciones.
-        assertEquals(listIndividualTransaction.size(),1);
+        assertEquals(listIndividualTransaction.size(), 1);
     }
 
     @Test
@@ -71,7 +86,7 @@ public class LastTransactionsTest {
         Admin admin = new Admin();
         List<Transaction> listIndividualTransaction = admin.getIndividualTransaction(admin.getClientList().get(4));
         //Según TestOperation, deberíamos tener 2 transacciones.
-        assertEquals(listIndividualTransaction.size(),2);
+        assertEquals(listIndividualTransaction.size(), 2);
     }
 
     @Test
@@ -79,7 +94,7 @@ public class LastTransactionsTest {
         Admin admin = new Admin();
         List<Transaction> listIndividualTransaction = admin.getIndividualTransaction(admin.getClientList().get(1));
         //Deberíamos obtener una transacción con comprador 'Kromi' y vendedor 'Guille'. Miraremos el comprador.
-        assertEquals(listIndividualTransaction.get(0).getPurchaser(),admin.getClientList().get(4).getEmail());
+        assertEquals(listIndividualTransaction.get(0).getPurchaser(), admin.getClientList().get(4).getEmail());
     }
 
     @Test
@@ -87,7 +102,7 @@ public class LastTransactionsTest {
         Admin admin = new Admin();
         List<Transaction> listIndividualTransaction = admin.getIndividualTransaction(admin.getClientList().get(1));
         //Deberíamos obtener una transacción con comprador 'Kromi' y vendedor 'Guille'. Miraremos el vendedor.
-        assertEquals(listIndividualTransaction.get(0).getSeller(),admin.getClientList().get(1).getEmail());
+        assertEquals(listIndividualTransaction.get(0).getSeller(), admin.getClientList().get(1).getEmail());
     }
 
     /*@BeforeEach

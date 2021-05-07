@@ -1,7 +1,11 @@
 import concesionario.Admin;
 import concesionario.Client;
+import concesionario.FilesCreator;
 import org.junit.jupiter.api.*;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
@@ -11,7 +15,29 @@ public class LoginTest {
     public Client client;
 
     @BeforeAll
-    static void beforeAll() {
+    static void beforeAll() throws IOException {
+        File naves = new File("Ships.dat");
+        File clientes = new File("Clients.dat");
+        File transacciones = new File("Transactions.dat");
+        File ofertas = new File("Offers.dat");
+        BufferedWriter bwN = new BufferedWriter(new FileWriter(naves));
+        bwN.write("");
+        bwN.close();
+        //naves.delete(); NO FUNCIONA EN WINDOWS.
+        BufferedWriter bwC = new BufferedWriter(new FileWriter(clientes));
+        bwC.write("");
+        bwC.close();
+        //clientes.delete();
+        BufferedWriter bwT = new BufferedWriter(new FileWriter(transacciones));
+        bwT.write("");
+        bwT.close();
+        //transacciones.delete();
+        BufferedWriter bwO = new BufferedWriter(new FileWriter(ofertas));
+        bwO.write("");
+        bwO.close();
+        //ofertas.delete();
+        FilesCreator filesCreator = new FilesCreator();
+        filesCreator.ClientCreator();
     }
 
     String mail;
@@ -31,7 +57,7 @@ public class LoginTest {
                 "Human", 7777, "AlexLopezAdrados", "alejandro",
                 "alelopez@gmail.com", true, 0, false,
                 false, null, null);
-        mail = "TestEmail1";//"alelopez@gmail.com";
+        mail = "alelopez@gmail.com";
         mailIncorrecto = "mailFalso";
         adminMail = "Admin";
         admin = new Admin();
